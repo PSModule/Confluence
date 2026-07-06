@@ -4,7 +4,7 @@ Confluence is intended to be a PowerShell module for interacting with Atlassian 
 
 ## Status
 
-This repository is currently a placeholder. The module source still contains scaffold code, so there are no supported commands or usage examples to document yet.
+This repository is currently a placeholder. The module source still contains scaffold code and examples, so there are no supported Confluence-specific commands or usage examples to document yet.
 
 ## Documentation
 
