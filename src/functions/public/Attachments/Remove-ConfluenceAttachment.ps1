@@ -1,4 +1,5 @@
-﻿function Remove-ConfluenceAttachment {
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function Remove-ConfluenceAttachment {
     <#
         .SYNOPSIS
         Delete an attachment (delete:attachment).

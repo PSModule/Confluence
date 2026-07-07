@@ -1,4 +1,5 @@
-﻿function Get-ConfluenceSpace {
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function Get-ConfluenceSpace {
     <#
         .SYNOPSIS
         Get a Confluence space (read:space).

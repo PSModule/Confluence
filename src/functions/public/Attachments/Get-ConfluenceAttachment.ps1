@@ -1,4 +1,5 @@
-﻿function Get-ConfluenceAttachment {
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function Get-ConfluenceAttachment {
     <#
         .SYNOPSIS
         Get page attachments (read:attachment).

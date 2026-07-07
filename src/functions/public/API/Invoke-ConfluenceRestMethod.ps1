@@ -1,6 +1,7 @@
 ﻿#Requires -Version 7.0
 #Requires -Modules @{ ModuleName = 'Context'; RequiredVersion = '8.1.6' }
 
+#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
 function Invoke-ConfluenceRestMethod {
     <#
         .SYNOPSIS

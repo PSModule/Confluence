@@ -1,4 +1,5 @@
-﻿function Set-ConfluencePage {
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function Set-ConfluencePage {
     <#
         .SYNOPSIS
         Update a Confluence page (read:page and write:page).

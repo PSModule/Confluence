@@ -1,4 +1,5 @@
-﻿function Add-ConfluenceAttachment {
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function Add-ConfluenceAttachment {
     <#
         .SYNOPSIS
         Upload an attachment to a page (read:content-details and write:attachment).

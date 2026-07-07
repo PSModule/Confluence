@@ -1,4 +1,5 @@
-﻿function Get-ConfluenceComment {
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function Get-ConfluenceComment {
     <#
         .SYNOPSIS
         List the footer comments on a page (read:comment).

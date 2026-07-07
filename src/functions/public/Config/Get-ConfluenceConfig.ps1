@@ -1,4 +1,5 @@
-﻿function Get-ConfluenceConfig {
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function Get-ConfluenceConfig {
     <#
         .SYNOPSIS
         Get the Confluence module configuration.

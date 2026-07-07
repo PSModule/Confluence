@@ -1,4 +1,5 @@
-﻿function Remove-ConfluenceLabel {
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function Remove-ConfluenceLabel {
     <#
         .SYNOPSIS
         Remove a label from a page (write:label).
