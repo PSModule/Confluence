@@ -1,4 +1,7 @@
-﻿function Invoke-ConfluenceRestMethod {
+﻿#Requires -Version 7.0
+#Requires -Modules @{ ModuleName = 'Context'; RequiredVersion = '8.1.6' }
+
+function Invoke-ConfluenceRestMethod {
     <#
     .SYNOPSIS
         Call the Confluence REST API using a stored (or supplied) context.
