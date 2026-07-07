@@ -1,15 +1,14 @@
 # Confluence
 
-A PowerShell module that interacts with Atlassian Confluence
+Confluence is a PowerShell module for interacting with the Atlassian Confluence Cloud REST API, both interactively and in automation.
 
-## Prerequisites
-
-This uses the following external resources:
-- The [PSModule framework](https://github.com/PSModule) for building, testing and publishing the module.
+It exposes pages, blog posts, folders, spaces, comments, labels, content properties, attachments, restrictions and more as PowerShell commands.
+Every command is a thin wrapper over a single generic REST entry point (`Invoke-ConfluenceRestMethod`). Credentials and module configuration
+are stored with the [Context](https://github.com/PSModule/Context) module, so you connect once and reuse the profile across sessions.
 
 ## Installation
 
-To install the module from the PowerShell Gallery, you can use the following command:
+Install the module from the PowerShell Gallery:
 
 ```powershell
 Install-PSResource -Name Confluence
@@ -18,52 +17,33 @@ Import-Module -Name Confluence
 
 ## Usage
 
-Here is a list of example that are typical use cases for the module.
-
-### Example 1: Greet an entity
-
-Provide examples for typical commands that a user would like to do with the module.
+Connect with a scoped Atlassian API token, then call the resource commands. The token is kept as a `SecureString` in the Context vault.
 
 ```powershell
-Greet-Entity -Name 'World'
-Hello, World!
+# Connect and store a reusable, named credential profile
+$token = Read-Host -AsSecureString   # a scoped Atlassian API token
+Connect-Confluence -ApiBaseUri 'https://api.atlassian.com/ex/confluence/<cloudId>' -Username 'you@example.com' -Token $token -SpaceKey 'DOCS'
+
+# Work with content
+$space = Get-ConfluenceSpace -Key 'DOCS'
+$page = New-ConfluencePage -SpaceId $space.id -Title 'Release notes' -Body '<p>Hello</p>'
+Set-ConfluencePage -PageId $page.id -Body '<p>Updated</p>'
+Get-ConfluencePageChild -PageId $page.id
 ```
 
-### Example 2
-
-Provide examples for typical commands that a user would like to do with the module.
-
-```powershell
-Import-Module -Name PSModuleTemplate
-```
-
-### Find more examples
-
-To find more examples of how to use the module, please refer to the [examples](examples) folder.
-
-Alternatively, you can use the Get-Command -Module 'This module' to find more commands that are available in the module.
-To find examples of each of the commands you can use Get-Help -Examples 'CommandName'.
+See the [examples](examples) folder for more, including managing contexts and pages.
 
 ## Documentation
 
-Link to further documentation if available, or describe where in the repository users can find more detailed documentation about
-the module's functions and features.
+Documentation is published at [psmodule.io/Confluence](https://psmodule.io/Confluence/).
+
+Use PowerShell help and command discovery for module details:
+
+```powershell
+Get-Command -Module Confluence
+Get-Help New-ConfluencePage -Examples
+```
 
 ## Contributing
 
-Coder or not, you can contribute to the project! We welcome all contributions.
-
-### For Users
-
-If you don't code, you still sit on valuable information that can make this project even better. If you experience that the
-product does unexpected things, throw errors or is missing functionality, you can help by submitting bugs and feature requests.
-Please see the issues tab on this project and submit a new issue that matches your needs.
-
-### For Developers
-
-If you do code, we'd love to have your contributions. Please read the [Contribution guidelines](CONTRIBUTING.md) for more information.
-You can either help by picking up an existing issue or submit a new one if you have an idea for a new feature or improvement.
-
-## Acknowledgements
-
-Here is a list of people and projects that helped this project in some way.
+Issues and pull requests are welcome. Please use the repository issue tracker to report bugs, request features, or discuss improvements.

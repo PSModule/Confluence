@@ -1,0 +1,23 @@
+﻿function Get-ConfluencePageChild {
+    <#
+    .SYNOPSIS
+        List the direct child pages of a page (read:page).
+    .DESCRIPTION
+        Returns every direct child page, following pagination automatically.
+    .EXAMPLE
+        Get-ConfluencePageChild -PageId '12345'
+    .LINK
+        https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-children/
+    #>
+    [CmdletBinding()]
+    param(
+        # The parent page id.
+        [Parameter(Mandatory)]
+        [string]$PageId,
+
+        # The context to use: an object, a context name, or $null for the default.
+        [object]$Context
+    )
+
+    Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/pages/$PageId/children" -All -Context $Context
+}
