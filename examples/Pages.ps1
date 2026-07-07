@@ -22,7 +22,7 @@ Get-ConfluencePage -PageId $page.id
 Set-ConfluencePage -PageId $page.id -Body '<p>Updated content</p>'
 
 # Add a child page, then list children and descendants
-$child = New-ConfluencePage -SpaceId $space.id -Title 'Details' -ParentId $page.id -Body '<p>Nested</p>'
+New-ConfluencePage -SpaceId $space.id -Title 'Details' -ParentId $page.id -Body '<p>Nested</p>'
 Get-ConfluencePageChild -PageId $page.id
 Get-ConfluenceDescendant -PageId $page.id
 

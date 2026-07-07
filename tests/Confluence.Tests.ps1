@@ -1,5 +1,7 @@
 ﻿[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments', '',
     Justification = 'Pester test cases assign variables that are used in other scopes.')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '',
+    Justification = 'The API token is supplied as a CI environment secret and must be converted to a SecureString for Connect-Confluence.')]
 [CmdletBinding()]
 param()
 
@@ -70,7 +72,14 @@ Describe 'Confluence' {
     Context 'Integration' -Skip:([string]::IsNullOrEmpty($env:CONFLUENCE_API_TOKEN)) {
         BeforeAll {
             $secureToken = ConvertTo-SecureString -String $env:CONFLUENCE_API_TOKEN -AsPlainText -Force
-            Connect-Confluence -ApiBaseUri $env:CONFLUENCE_API_BASE_URI -Username $env:CONFLUENCE_USERNAME -Token $secureToken -SpaceKey $env:CONFLUENCE_SPACE_KEY -Name 'ci'
+            $connectParams = @{
+                ApiBaseUri = $env:CONFLUENCE_API_BASE_URI
+                Username   = $env:CONFLUENCE_USERNAME
+                Token      = $secureToken
+                SpaceKey   = $env:CONFLUENCE_SPACE_KEY
+                Name       = 'ci'
+            }
+            Connect-Confluence @connectParams
         }
 
         AfterAll {
