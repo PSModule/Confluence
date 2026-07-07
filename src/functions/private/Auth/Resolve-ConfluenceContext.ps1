@@ -1,8 +1,9 @@
 ﻿function Resolve-ConfluenceContext {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Resolve a context argument into a usable credential-context object.
-    .DESCRIPTION
+
+        .DESCRIPTION
         Accepts a context object/hashtable (returned as-is), a context name
         (looked up in the vault), or nothing (falls back to the default context
         recorded in the module configuration).

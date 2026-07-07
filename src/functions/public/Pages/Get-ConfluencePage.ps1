@@ -1,12 +1,22 @@
 ﻿function Get-ConfluencePage {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Get a Confluence page by id (read:page).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Returns a single page, including its body in the requested format.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Get-ConfluencePage -PageId '12345'
-    .LINK
+        ```
+
+        Gets page 12345, including its body in storage format.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Pages/Get-ConfluencePage/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-page/
     #>
     [CmdletBinding()]

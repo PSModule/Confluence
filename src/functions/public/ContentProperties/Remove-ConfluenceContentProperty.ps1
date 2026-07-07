@@ -1,13 +1,23 @@
 ﻿function Remove-ConfluenceContentProperty {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Delete a content property from a page (read:page and write:page).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Deletes a content property by its id. In v2, page content properties are
         governed by the page's own scope (read:page and write:page).
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Remove-ConfluenceContentProperty -PageId '12345' -PropertyId '98765'
-    .LINK
+        ```
+
+        Deletes the content property with ID 98765 from page 12345.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/ContentProperties/Remove-ConfluenceContentProperty/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-content-properties/
     #>
     [CmdletBinding(SupportsShouldProcess)]

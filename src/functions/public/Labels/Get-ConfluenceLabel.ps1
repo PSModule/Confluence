@@ -1,14 +1,24 @@
 ﻿function Get-ConfluenceLabel {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         List the labels on a page (read:page).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Returns every label on the page, following pagination. In v2 a page's
         labels are read under the page's own scope (read:page); the read:label
         scope covers only the site-wide GET /labels endpoint.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Get-ConfluenceLabel -PageId '12345'
-    .LINK
+        ```
+
+        Lists the labels on page 12345.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Labels/Get-ConfluenceLabel/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-label/
     #>
     [CmdletBinding()]

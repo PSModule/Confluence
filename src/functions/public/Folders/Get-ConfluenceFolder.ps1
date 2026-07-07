@@ -1,12 +1,22 @@
 ﻿function Get-ConfluenceFolder {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Get a Confluence folder by id (read:folder).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Returns a single folder.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Get-ConfluenceFolder -FolderId '67890'
-    .LINK
+        ```
+
+        Gets the folder with ID 67890.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Folders/Get-ConfluenceFolder/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-folder/
     #>
     [CmdletBinding()]

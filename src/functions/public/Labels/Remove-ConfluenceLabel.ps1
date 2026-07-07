@@ -1,12 +1,22 @@
 ﻿function Remove-ConfluenceLabel {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Remove a label from a page (write:label).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Removes a label from a page via the v1 content endpoint.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Remove-ConfluenceLabel -PageId '12345' -Label 'docs'
-    .LINK
+        ```
+
+        Removes the 'docs' label from page 12345.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Labels/Remove-ConfluenceLabel/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v1/api-group-content-labels/
     #>
     [CmdletBinding(SupportsShouldProcess)]

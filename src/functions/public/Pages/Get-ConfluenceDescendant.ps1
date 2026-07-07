@@ -1,13 +1,23 @@
 ﻿function Get-ConfluenceDescendant {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         List all descendants of a page (read:hierarchical-content).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Returns every descendant (child, grandchild, ...) of a page, following
         pagination automatically.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Get-ConfluenceDescendant -PageId '12345'
-    .LINK
+        ```
+
+        Lists all descendants of page 12345.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Pages/Get-ConfluenceDescendant/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-descendants/
     #>
     [CmdletBinding()]

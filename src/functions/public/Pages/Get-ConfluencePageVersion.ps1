@@ -1,12 +1,22 @@
 ﻿function Get-ConfluencePageVersion {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         List the version history of a page (read:page).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Returns every version entry for a page, newest first, following pagination.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Get-ConfluencePageVersion -PageId '12345'
-    .LINK
+        ```
+
+        Lists the version history of page 12345.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Pages/Get-ConfluencePageVersion/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-version/
     #>
     [CmdletBinding()]

@@ -1,12 +1,22 @@
 ﻿function Get-ConfluencePageChild {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         List the direct child pages of a page (read:page).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Returns every direct child page, following pagination automatically.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Get-ConfluencePageChild -PageId '12345'
-    .LINK
+        ```
+
+        Lists the direct child pages of page 12345.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Pages/Get-ConfluencePageChild/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-children/
     #>
     [CmdletBinding()]

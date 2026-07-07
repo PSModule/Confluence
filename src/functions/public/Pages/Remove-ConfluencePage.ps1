@@ -1,14 +1,24 @@
 ﻿function Remove-ConfluencePage {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Delete a Confluence page (delete:page).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Moves a page to the trash. With -Recurse, direct and nested child pages
         are removed first so that a whole subtree can be deleted. With -Purge the
         page is permanently deleted (only valid for already-trashed pages).
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Remove-ConfluencePage -PageId '12345' -Recurse
-    .LINK
+        ```
+
+        Moves page 12345 and its child pages to the trash.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Pages/Remove-ConfluencePage/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-page/
     #>
     [CmdletBinding(SupportsShouldProcess)]

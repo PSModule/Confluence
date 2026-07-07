@@ -1,13 +1,23 @@
 ﻿function Get-ConfluenceSpace {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Get a Confluence space (read:space).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Returns a space by key or by id. When neither is supplied the default
         space key from the connected context is used.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Get-ConfluenceSpace -Key 'DOCS'
-    .LINK
+        ```
+
+        Gets the space with key 'DOCS'.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Spaces/Get-ConfluenceSpace/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-space/
     #>
     [CmdletBinding(DefaultParameterSetName = 'ByKey')]

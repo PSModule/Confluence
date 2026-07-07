@@ -3,9 +3,10 @@
 
 function Invoke-ConfluenceRestMethod {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Call the Confluence REST API using a stored (or supplied) context.
-    .DESCRIPTION
+
+        .DESCRIPTION
         The single generic entry point that every other Confluence function is
         built on. It resolves the credential context, builds the HTTP Basic auth
         header, sends the request, and surfaces API errors as terminating errors.
@@ -16,11 +17,21 @@ function Invoke-ConfluenceRestMethod {
         rejection from other failures. Pass -Debug to emit the full request and
         response (status, headers, and body); the Authorization header is
         redacted.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Invoke-ConfluenceRestMethod -ApiEndpoint '/wiki/api/v2/spaces' -Query @{ limit = 1 }
-    .LINK
+        ```
+
+        Calls the spaces endpoint directly and returns the raw response.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/API/Invoke-ConfluenceRestMethod/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/intro/
-    .LINK
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/scopes-for-oauth-2-3LO-and-forge-apps/
     #>
     [CmdletBinding()]

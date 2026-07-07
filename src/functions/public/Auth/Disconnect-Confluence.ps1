@@ -1,12 +1,21 @@
 ﻿function Disconnect-Confluence {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Remove a stored Confluence credential profile.
-    .DESCRIPTION
+
+        .DESCRIPTION
         Deletes the named context from the vault and clears it as the default
         context if it was the current default.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Disconnect-Confluence -Name 'sandbox'
+        ```
+
+        Removes the stored 'sandbox' credential profile.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Auth/Disconnect-Confluence/
     #>
     [CmdletBinding(SupportsShouldProcess)]
     param(

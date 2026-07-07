@@ -1,12 +1,22 @@
 ﻿function Remove-ConfluenceFolder {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Delete a Confluence folder (delete:folder).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Moves a folder to the trash.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Remove-ConfluenceFolder -FolderId '67890'
-    .LINK
+        ```
+
+        Moves the folder with ID 67890 to the trash.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Folders/Remove-ConfluenceFolder/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-folder/
     #>
     [CmdletBinding(SupportsShouldProcess)]

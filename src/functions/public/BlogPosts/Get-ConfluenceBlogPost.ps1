@@ -1,13 +1,23 @@
 ﻿function Get-ConfluenceBlogPost {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Get blog posts (read:page).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Returns a single blog post by id, the blog posts in a space, or all blog
         posts across the site, following pagination.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Get-ConfluenceBlogPost -SpaceId '123456'
-    .LINK
+        ```
+
+        Lists the blog posts in the space with ID 123456.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/BlogPosts/Get-ConfluenceBlogPost/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-blog-post/
     #>
     [CmdletBinding(DefaultParameterSetName = 'List')]

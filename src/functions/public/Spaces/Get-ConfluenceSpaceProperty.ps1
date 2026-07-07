@@ -1,12 +1,22 @@
 ﻿function Get-ConfluenceSpaceProperty {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Get space properties (read:space).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Returns all properties on a space, or the single property with the given key.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Get-ConfluenceSpaceProperty -SpaceId '123456'
-    .LINK
+        ```
+
+        Gets all properties on the space with ID 123456.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Spaces/Get-ConfluenceSpaceProperty/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-space-properties/
     #>
     [CmdletBinding()]

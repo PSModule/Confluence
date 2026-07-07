@@ -1,12 +1,22 @@
 ﻿function New-ConfluenceFolder {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Create a Confluence folder (write:folder).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Creates a folder in a space, optionally beneath a parent page or folder.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         New-ConfluenceFolder -SpaceId $spaceId -Title 'Archive' -ParentId $pageId
-    .LINK
+        ```
+
+        Creates a folder named 'Archive' beneath the given parent.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Folders/New-ConfluenceFolder/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-folder/
     #>
     [CmdletBinding(SupportsShouldProcess)]

@@ -1,15 +1,25 @@
 ﻿function Get-ConfluenceContentProperty {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Get content properties of a page (read:page).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Returns all content properties on a page, or the single property with the
         given key. In v2, a page's content properties are governed by the page's
         own scope (read:page); the read:content.property scope applies to the v1
         property API.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Get-ConfluenceContentProperty -PageId '12345' -Key 'my-prop'
-    .LINK
+        ```
+
+        Gets the 'my-prop' content property from page 12345.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/ContentProperties/Get-ConfluenceContentProperty/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-content-properties/
     #>
     [CmdletBinding()]

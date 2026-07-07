@@ -1,14 +1,24 @@
 ﻿function Add-ConfluenceLabel {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Add one or more labels to a page (read:label and write:label).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Adds labels to a page. Confluence exposes label creation only on the v1
         content endpoint (/wiki/rest/api/content/{id}/label), which the granular
         read:label and write:label scopes authorise.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Add-ConfluenceLabel -PageId '12345' -Label 'docs', 'published'
-    .LINK
+        ```
+
+        Adds the 'docs' and 'published' labels to page 12345.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Labels/Add-ConfluenceLabel/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v1/api-group-content-labels/
     #>
     [CmdletBinding(SupportsShouldProcess)]

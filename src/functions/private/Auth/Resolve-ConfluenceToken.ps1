@@ -1,8 +1,9 @@
 ﻿function Resolve-ConfluenceToken {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Return the plain-text API token from a SecureString or string.
-    .DESCRIPTION
+
+        .DESCRIPTION
         The token is stored as a SecureString in the credential context; this
         converts it to the plain text needed to build the Basic auth header.
     #>

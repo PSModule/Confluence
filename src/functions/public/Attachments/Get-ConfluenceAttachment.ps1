@@ -1,12 +1,22 @@
 ﻿function Get-ConfluenceAttachment {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Get page attachments (read:attachment).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Lists the attachments on a page, or returns a single attachment by id.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Get-ConfluenceAttachment -PageId '12345'
-    .LINK
+        ```
+
+        Lists the attachments on page 12345.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Attachments/Get-ConfluenceAttachment/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-attachment/
     #>
     [CmdletBinding(DefaultParameterSetName = 'ByPage')]

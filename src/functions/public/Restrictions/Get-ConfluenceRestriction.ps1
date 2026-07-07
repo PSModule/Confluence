@@ -1,15 +1,25 @@
 ﻿function Get-ConfluenceRestriction {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Get the content restrictions on a page (read:content-details).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Returns the read/update restrictions applied to a page. Reading
         restrictions requires read:content-details; the read:content.restriction
         scope only covers the narrow byOperation/{op}/user|group status checks.
         Content restrictions are part of the v1 content API (see the link).
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Get-ConfluenceRestriction -PageId '12345'
-    .LINK
+        ```
+
+        Gets the read/update restrictions on page 12345.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Restrictions/Get-ConfluenceRestriction/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v1/api-group-content-restrictions/
     #>
     [CmdletBinding()]

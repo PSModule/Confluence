@@ -1,8 +1,9 @@
 ﻿function ConvertTo-ConfluenceHashtable {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Convert a PSCustomObject (or hashtable) into a plain hashtable.
-    .DESCRIPTION
+
+        .DESCRIPTION
         Used to turn the stored module-configuration context returned by
         Get-Context into a mutable hashtable.
     #>

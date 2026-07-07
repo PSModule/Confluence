@@ -1,15 +1,25 @@
 ﻿function Set-ConfluenceContentProperty {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Create or update a content property on a page (read:page and write:page).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Creates the property if it does not exist, or updates it (incrementing
         its version) if it does. In v2, page content properties are governed by
         the page's own scope: reading requires read:page and writing requires
         write:page.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Set-ConfluenceContentProperty -PageId '12345' -Key 'owner' -Value @{ team = 'ai' }
-    .LINK
+        ```
+
+        Creates or updates the 'owner' content property on page 12345.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/ContentProperties/Set-ConfluenceContentProperty/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-content-properties/
     #>
     [CmdletBinding(SupportsShouldProcess)]

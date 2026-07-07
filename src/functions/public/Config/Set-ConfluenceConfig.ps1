@@ -1,12 +1,21 @@
 ﻿function Set-ConfluenceConfig {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Set a Confluence module configuration value.
-    .DESCRIPTION
+
+        .DESCRIPTION
         Updates a single configuration item and persists the configuration to
         the context vault.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Set-ConfluenceConfig -Name 'PerPage' -Value 50
+        ```
+
+        Sets the PerPage configuration value to 50.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Config/Set-ConfluenceConfig/
     #>
     [CmdletBinding(SupportsShouldProcess)]
     param(

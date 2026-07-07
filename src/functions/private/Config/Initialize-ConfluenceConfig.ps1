@@ -1,8 +1,9 @@
 ﻿function Initialize-ConfluenceConfig {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Load the module configuration from the context vault into memory.
-    .DESCRIPTION
+
+        .DESCRIPTION
         Loads the stored 'Module' configuration context, creating it from the
         built-in defaults on first use. Missing default keys are backfilled.
     #>

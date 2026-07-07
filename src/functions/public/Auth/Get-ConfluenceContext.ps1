@@ -1,12 +1,21 @@
 ﻿function Get-ConfluenceContext {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Get a stored Confluence credential profile.
-    .DESCRIPTION
+
+        .DESCRIPTION
         Returns the named context, the default context, or (with -ListAvailable)
         all stored Confluence contexts. The token remains a SecureString.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Get-ConfluenceContext
+        ```
+
+        Returns the current default context.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Auth/Get-ConfluenceContext/
     #>
     [CmdletBinding(DefaultParameterSetName = 'Single')]
     [OutputType([pscustomobject])]

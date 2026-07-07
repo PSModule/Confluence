@@ -1,13 +1,23 @@
 ﻿function New-ConfluencePage {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Create a Confluence page (write:page).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Creates a page in a space, optionally beneath a parent page. A page with
         no parent is created under the space home page.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         New-ConfluencePage -SpaceId $spaceId -Title 'Docs' -Body '<p>Hello</p>'
-    .LINK
+        ```
+
+        Creates a page titled 'Docs' in the given space.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Pages/New-ConfluencePage/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-page/
     #>
     [CmdletBinding(SupportsShouldProcess)]

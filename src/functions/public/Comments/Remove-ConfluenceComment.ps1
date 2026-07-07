@@ -1,12 +1,22 @@
 ﻿function Remove-ConfluenceComment {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Delete a footer comment (delete:comment).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Permanently deletes a footer comment by id.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Remove-ConfluenceComment -CommentId '55555'
-    .LINK
+        ```
+
+        Deletes the footer comment with ID 55555.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Comments/Remove-ConfluenceComment/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-comment/
     #>
     [CmdletBinding(SupportsShouldProcess)]

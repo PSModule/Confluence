@@ -1,18 +1,29 @@
 ﻿function Connect-Confluence {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Connect to Confluence and store a credential profile in the context vault.
-    .DESCRIPTION
+
+        .DESCRIPTION
         Validates the supplied credentials with a lightweight authenticated call,
         stores them as a named context (the token is kept as a SecureString), and
         records the context as the module default. A token that authenticates but
         lacks the read:space scope still connects (with a warning).
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         $token = Read-Host -AsSecureString
         Connect-Confluence -ApiBaseUri $uri -Username $user -Token $token -SpaceKey 'DOCS'
-    .LINK
+        ```
+
+        Connects with a scoped token and stores the profile with 'DOCS' as the default space.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Auth/Connect-Confluence/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/intro/#auth
-    .LINK
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/scopes-for-oauth-2-3LO-and-forge-apps/
     #>
     [CmdletBinding(SupportsShouldProcess)]

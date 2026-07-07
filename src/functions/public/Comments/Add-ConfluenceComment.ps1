@@ -1,12 +1,22 @@
 ﻿function Add-ConfluenceComment {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Add a footer comment to a page (write:comment).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Creates a footer comment on the given page.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Add-ConfluenceComment -PageId '12345' -Body '<p>Nice page.</p>'
-    .LINK
+        ```
+
+        Adds a footer comment to page 12345.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Comments/Add-ConfluenceComment/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-comment/
     #>
     [CmdletBinding(SupportsShouldProcess)]

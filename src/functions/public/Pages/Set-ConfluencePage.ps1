@@ -1,15 +1,25 @@
 ﻿function Set-ConfluencePage {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Update a Confluence page (read:page and write:page).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Updates the title and/or body of a page, automatically incrementing the
         version number. Unspecified fields keep their current values. The current
         page is read first (read:page) to preserve unspecified fields and to
         obtain the version number, then written back (write:page).
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Set-ConfluencePage -PageId '12345' -Body '<p>Updated</p>'
-    .LINK
+        ```
+
+        Updates the body of page 12345, incrementing its version.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Pages/Set-ConfluencePage/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-page/
     #>
     [CmdletBinding(SupportsShouldProcess)]

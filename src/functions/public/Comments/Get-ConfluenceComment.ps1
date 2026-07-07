@@ -1,12 +1,22 @@
 ﻿function Get-ConfluenceComment {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         List the footer comments on a page (read:comment).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Returns every footer comment on the page, following pagination.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Get-ConfluenceComment -PageId '12345'
-    .LINK
+        ```
+
+        Lists the footer comments on page 12345.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Comments/Get-ConfluenceComment/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-comment/
     #>
     [CmdletBinding()]

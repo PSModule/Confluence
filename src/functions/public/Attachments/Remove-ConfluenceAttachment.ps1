@@ -1,12 +1,22 @@
 ﻿function Remove-ConfluenceAttachment {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Delete an attachment (delete:attachment).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Deletes an attachment by id.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Remove-ConfluenceAttachment -AttachmentId 'att12345'
-    .LINK
+        ```
+
+        Deletes the attachment with ID att12345.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Attachments/Remove-ConfluenceAttachment/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-attachment/
     #>
     [CmdletBinding(SupportsShouldProcess)]

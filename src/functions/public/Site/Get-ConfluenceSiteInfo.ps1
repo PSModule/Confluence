@@ -1,15 +1,25 @@
 ﻿function Get-ConfluenceSiteInfo {
     <#
-    .SYNOPSIS
+        .SYNOPSIS
         Get basic information about the connected Confluence site (read:space or read:page).
-    .DESCRIPTION
+
+        .DESCRIPTION
         Returns the site's cloud id (parsed from the API-gateway base URI) and
         the browsable site (wiki) base URL (read from the API's _links.base). A
         scoped v2 token cannot reach the dedicated site/settings endpoints (site
         name, edition, build number) — those are v1-only and are rejected.
-    .EXAMPLE
+
+        .EXAMPLE
+        ```powershell
         Get-ConfluenceSiteInfo
-    .LINK
+        ```
+
+        Returns the cloud ID and browsable site URL for the connected site.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/Site/Get-ConfluenceSiteInfo/
+
+        .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-space/
     #>
     [CmdletBinding()]
