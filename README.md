@@ -33,6 +33,8 @@ Get-ConfluencePageChild -PageId $page.id
 
 See the [examples](examples) folder for more, including managing contexts and pages.
 
+The service-account token must be granted the module's required Confluence scopes — see [SCOPES.md](SCOPES.md).
+
 ## Documentation
 
 Documentation is published at [psmodule.io/Confluence](https://psmodule.io/Confluence/).
