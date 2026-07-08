@@ -70,11 +70,17 @@ Describe 'Confluence' {
         }
     }
 
-    # Integration tests run only when live credentials are provided. The calling workflow supplies
-    # them through Process-PSModule's TestSecrets (CONFLUENCE_API_TOKEN, masked) and TestVariables
-    # (CONFLUENCE_SITE, CONFLUENCE_USERNAME, CONFLUENCE_SPACE_KEY), which are exposed as environment
-    # variables. They are skipped locally and wherever the API token is not available.
-    Context 'Integration' -Skip:([string]::IsNullOrEmpty($env:CONFLUENCE_API_TOKEN)) {
+    # Integration tests run only when ALL live credentials are provided. The calling workflow supplies
+    # them through Process-PSModule's TestData - CONFLUENCE_API_TOKEN under "secrets" (masked) and
+    # CONFLUENCE_SITE, CONFLUENCE_USERNAME and CONFLUENCE_SPACE_KEY under "variables" - exposed as
+    # environment variables. The context is skipped locally and whenever any of them is missing.
+    $missingIntegrationVars = @(
+        $env:CONFLUENCE_API_TOKEN
+        $env:CONFLUENCE_SITE
+        $env:CONFLUENCE_USERNAME
+        $env:CONFLUENCE_SPACE_KEY
+    ) | Where-Object { [string]::IsNullOrEmpty($_) }
+    Context 'Integration' -Skip:(@($missingIntegrationVars).Count -gt 0) {
         BeforeAll {
             $secureToken = ConvertTo-SecureString -String $env:CONFLUENCE_API_TOKEN -AsPlainText -Force
             $connectParams = @{
