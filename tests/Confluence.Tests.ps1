@@ -68,9 +68,10 @@ Describe 'Confluence' {
         }
     }
 
-    # Integration tests run only when live credentials are provided through the
-    # repository's GitHub Environment secrets. They are skipped locally and on
-    # pull requests where the secrets are not available.
+    # Integration tests run only when live credentials are provided. The calling workflow supplies
+    # them through Process-PSModule's TestSecrets (CONFLUENCE_API_TOKEN, masked) and TestVariables
+    # (CONFLUENCE_API_BASE_URI, CONFLUENCE_USERNAME, CONFLUENCE_SPACE_KEY), which are exposed as
+    # environment variables. They are skipped locally and wherever the API token is not available.
     Context 'Integration' -Skip:([string]::IsNullOrEmpty($env:CONFLUENCE_API_TOKEN)) {
         BeforeAll {
             $secureToken = ConvertTo-SecureString -String $env:CONFLUENCE_API_TOKEN -AsPlainText -Force
