@@ -8,6 +8,11 @@ When you create the token for the service account, select **granular** Confluenc
 scopes (not the classic `*-confluence-*` scopes). Use this document when
 generating or rotating a token.
 
+> Note: cmdlet help lists scopes in a shortened form (for example `read:page`),
+> omitting the `:confluence` suffix for brevity. The canonical, fully-qualified
+> scope strings you grant on the token are the ones in this document (for example
+> `read:page:confluence`).
+
 ## Configured scopes
 
 The token is currently configured with **48** granular Confluence scopes
