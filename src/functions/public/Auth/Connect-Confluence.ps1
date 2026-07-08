@@ -46,7 +46,7 @@ function Connect-Confluence {
         [string]$Site,
 
         # The Confluence Cloud ID - a faster alternative to -Site that skips the lookup.
-        # Find it with `ConvertTo-ConfluenceCloudId` or `Get-ConfluenceAccessibleResource`.
+        # Find it with `Get-ConfluenceCloudId` or `Get-ConfluenceAccessibleResource`.
         [Parameter(Mandatory, ParameterSetName = 'CloudId')]
         [string]$CloudId,
 
@@ -70,7 +70,7 @@ function Connect-Confluence {
 
     if ($PSCmdlet.ParameterSetName -eq 'Site') {
         # Resolve a site name/host/URL to its cloud ID via the public tenant_info endpoint.
-        $CloudId = ConvertTo-ConfluenceCloudId -Site $Site
+        $CloudId = Get-ConfluenceCloudId -Site $Site
     }
     # The scoped-token gateway base is always api.atlassian.com/ex/confluence/<cloudId>.
     $ApiBaseUri = 'https://api.atlassian.com/ex/confluence/{0}' -f $CloudId
@@ -100,6 +100,7 @@ function Connect-Confluence {
         Username   = $Username
         Token      = $Token
         SpaceKey   = $SpaceKey
+        Scopes     = @()
     }
 
     if (-not $PSCmdlet.ShouldProcess($Name, 'Connect to Confluence and store credential context')) {
@@ -116,6 +117,19 @@ function Connect-Confluence {
             throw
         }
         Write-Warning "Token authenticated but lacks read:space; space listing is unavailable for context '$Name'."
+    }
+
+    # Best-effort: record the scopes the token holds for this site (from the
+    # accessible-resources endpoint) so the stored context reflects what we can do.
+    # Never fail the connection if scope discovery is unavailable for this token.
+    try {
+        $resource = Get-ConfluenceAccessibleResource -Token $Token | Where-Object { $_.id -eq $CloudId } | Select-Object -First 1
+        if ($resource -and $resource.scopes) {
+            $context['Scopes'] = @($resource.scopes)
+            Write-Verbose "Recorded $($context['Scopes'].Count) scope(s) for context '$Name'."
+        }
+    } catch {
+        Write-Verbose "Could not resolve token scopes from accessible-resources: $($_.Exception.Message)"
     }
 
     $stored = Set-Context -ID $Name -Context $context -Vault $script:Confluence.ContextVault -PassThru

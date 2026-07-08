@@ -1,44 +1,42 @@
 ﻿#SkipTest:FunctionTest:Resolves the cloud ID from the public tenant_info endpoint; covered by integration tests.
-function ConvertTo-ConfluenceCloudId {
+function Get-ConfluenceCloudId {
     <#
         .SYNOPSIS
-        Resolve a Confluence Cloud site to its cloud ID.
+        Get the cloud ID for a Confluence Cloud site.
 
         .DESCRIPTION
         Looks up the cloud ID for an Atlassian Confluence Cloud site from the
-        public `/_edge/tenant_info` endpoint, so a caller can supply a site name or
-        URL instead of the cloud ID. Accepts a bare subdomain (`myorg`), a host
-        (`myorg.atlassian.net`), or any URL on the site
+        public `/_edge/tenant_info` endpoint (a GET request), so a caller can supply
+        a site name or URL instead of the cloud ID. Accepts a bare subdomain
+        (`myorg`), a host (`myorg.atlassian.net`), or any URL on the site
         (`https://myorg.atlassian.net/wiki/...`). No authentication is required.
 
         .EXAMPLE
         ```powershell
-        ConvertTo-ConfluenceCloudId -Site 'msxorg'
+        Get-ConfluenceCloudId -Site 'msxorg'
         ```
 
         Returns the cloud ID for `https://msxorg.atlassian.net`.
 
         .EXAMPLE
         ```powershell
-        'https://msxorg.atlassian.net/wiki/spaces/DOCS' | ConvertTo-ConfluenceCloudId
+        'https://msxorg.atlassian.net/wiki/spaces/DOCS' | Get-ConfluenceCloudId
         ```
 
         Resolves the cloud ID from a full site URL supplied through the pipeline.
 
         .EXAMPLE
         ```powershell
-        $cloudId = ConvertTo-ConfluenceCloudId -Site 'msxorg'
-        Connect-Confluence -ApiBaseUri "https://api.atlassian.com/ex/confluence/$cloudId" -Username $user -Token $token
+        Connect-Confluence -CloudId (Get-ConfluenceCloudId -Site 'msxorg') -Username $user -Token $token
         ```
 
-        Uses the resolved cloud ID to build the API-gateway base URI for `Connect-Confluence`,
-        so the caller only needs the site name.
+        Uses the resolved cloud ID to connect, so the caller only needs the site name.
 
         .OUTPUTS
         System.String
 
         .LINK
-        https://psmodule.io/Confluence/Functions/Site/ConvertTo-ConfluenceCloudId/
+        https://psmodule.io/Confluence/Functions/Site/Get-ConfluenceCloudId/
 
         .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/intro/#about

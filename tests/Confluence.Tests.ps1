@@ -39,7 +39,7 @@ Describe 'Confluence' {
                     'Invoke-ConfluenceRestMethod'
                     'Get-ConfluenceSpace'
                     'Get-ConfluenceSiteInfo'
-                    'ConvertTo-ConfluenceCloudId'
+                    'Get-ConfluenceCloudId'
                     'Get-ConfluenceAccessibleResource'
                     'New-ConfluencePage'
                     'Get-ConfluencePage'
