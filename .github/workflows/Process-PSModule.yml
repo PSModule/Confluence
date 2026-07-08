@@ -27,24 +27,20 @@ permissions:
 
 jobs:
   Process-PSModule:
-    # Pinned to the TestSecrets/TestVariables feature branch of Process-PSModule (PR #365).
+    # Pinned to the TestData feature branch of Process-PSModule (PR #365).
     # Repin to the released tag once that change ships.
-    uses: PSModule/Process-PSModule/.github/workflows/workflow.yml@5ae2f4cfec688512e4889c014493dd581bfe7c38 # feat/52-test-secrets
+    uses: PSModule/Process-PSModule/.github/workflows/workflow.yml@ea019351821a74ae1528a4472198c84c91dd3059 # feat/52-test-secrets
     secrets:
       # PowerShell Gallery API key used to publish the module.
       APIKey: ${{ secrets.APIKey }}
-      # Secrets the module's tests need, exposed as environment variables (masked). Only what the
-      # tests require is passed - secrets: inherit is intentionally not used. The integration tests
-      # are skipped when CONFLUENCE_API_TOKEN is not available (forks / PRs without access).
-      TestSecrets: >-
-        {
-        "CONFLUENCE_API_TOKEN": ${{ toJSON(secrets.CONFLUENCE_API_TOKEN) }}
-        }
-    with:
-      # Non-secret configuration the module's tests need, exposed as environment variables (not masked).
-      TestVariables: >-
-        {
-        "CONFLUENCE_SITE": ${{ toJSON(vars.CONFLUENCE_SITE) }},
+      # All data the module's tests need, in one object: a "secrets" map (masked) and a "variables"
+      # map (not masked), each entry exposed as an environment variable. Only what the tests require
+      # is passed - secrets: inherit is intentionally not used. Integration tests skip when
+      # CONFLUENCE_API_TOKEN is unavailable (forks / PRs without access). Secrets use the direct
+      # "${{ secrets.X }}" form (CodeQL-clean) and the whole blob is one folded line so GitHub
+      # registers a single mask.
+      TestData: >-
+        { "secrets": { "CONFLUENCE_API_TOKEN": "${{ secrets.CONFLUENCE_API_TOKEN }}" },
+        "variables": { "CONFLUENCE_SITE": ${{ toJSON(vars.CONFLUENCE_SITE) }},
         "CONFLUENCE_USERNAME": ${{ toJSON(vars.CONFLUENCE_USERNAME) }},
-        "CONFLUENCE_SPACE_KEY": ${{ toJSON(vars.CONFLUENCE_SPACE_KEY) }}
-        }
+        "CONFLUENCE_SPACE_KEY": ${{ toJSON(vars.CONFLUENCE_SPACE_KEY) }} } }
