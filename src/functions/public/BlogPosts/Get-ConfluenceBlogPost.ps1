@@ -2,7 +2,7 @@
 function Get-ConfluenceBlogPost {
     <#
         .SYNOPSIS
-        Get blog posts (read:page).
+        Get blog posts (read:blogpost:confluence).
 
         .DESCRIPTION
         Returns a single blog post by id, the blog posts in a space, or all blog

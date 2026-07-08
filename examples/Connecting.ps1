@@ -16,11 +16,13 @@ Import-Module -Name 'Confluence'
 ###
 
 # Connect with a scoped Atlassian API token and store a reusable default profile.
+# -Site takes a subdomain, host, or any URL on the site and resolves the cloud ID for you.
 $token = Read-Host -AsSecureString   # a scoped Atlassian API token
-Connect-Confluence -ApiBaseUri 'https://api.atlassian.com/ex/confluence/<cloudId>' -Username 'you@example.com' -Token $token -SpaceKey 'DOCS'
+Connect-Confluence -Site 'yoursite' -Username 'you@example.com' -Token $token -SpaceKey 'DOCS'
 
 # Store several sites/accounts under explicit names and select per call.
-Connect-Confluence -ApiBaseUri 'https://api.atlassian.com/ex/confluence/<cloudId>' -Username 'you@example.com' -Token $token -Name 'sandbox'
+# If you already know the cloud ID, pass it directly with -CloudId to skip the lookup.
+Connect-Confluence -CloudId '<cloudId>' -Username 'you@example.com' -Token $token -Name 'sandbox'
 Get-ConfluenceSpace -Key 'DOCS' -Context 'sandbox'
 
 ###

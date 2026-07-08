@@ -22,7 +22,7 @@ Connect with a scoped Atlassian API token, then call the resource commands. The 
 ```powershell
 # Connect and store a reusable, named credential profile
 $token = Read-Host -AsSecureString   # a scoped Atlassian API token
-Connect-Confluence -ApiBaseUri 'https://api.atlassian.com/ex/confluence/<cloudId>' -Username 'you@example.com' -Token $token -SpaceKey 'DOCS'
+Connect-Confluence -Site 'yoursite' -Username 'you@example.com' -Token $token -SpaceKey 'DOCS'
 
 # Work with content
 $space = Get-ConfluenceSpace -Key 'DOCS'
