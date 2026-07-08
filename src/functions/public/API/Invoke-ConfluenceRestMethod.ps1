@@ -40,8 +40,15 @@ function Invoke-ConfluenceRestMethod {
     param(
         # The API path beginning with '/wiki/', e.g. '/wiki/api/v2/pages'.
         # A full absolute URL is also accepted (used when following pagination links).
+        # When -ApiVersion is supplied this is treated as a path relative to that
+        # API family's root (e.g. -ApiVersion v2 -ApiEndpoint 'spaces').
         [Parameter(Mandatory)]
         [string]$ApiEndpoint,
+
+        # Optional API family. Uses the internal map to prepend the version prefix
+        # (v1 -> /wiki/rest/api, v2 -> /wiki/api/v2) to a relative -ApiEndpoint.
+        [ValidateSet('v1', 'v2')]
+        [string]$ApiVersion,
 
         # The HTTP method. Defaults to GET.
         [ValidateSet('GET', 'POST', 'PUT', 'DELETE')]
@@ -65,6 +72,11 @@ function Invoke-ConfluenceRestMethod {
 
     if ($All -and $Method -ne 'GET') {
         throw "The -All switch follows pagination and is only valid for GET requests, not $Method."
+    }
+
+    # Resolve a relative endpoint against the internal v1/v2 map when a version is given.
+    if ($ApiVersion -and $ApiEndpoint -notmatch '^https?://') {
+        $ApiEndpoint = '{0}/{1}' -f $script:Confluence.ApiPaths[$ApiVersion], $ApiEndpoint.TrimStart('/')
     }
 
     $resolved = Resolve-ConfluenceContext -Context $Context

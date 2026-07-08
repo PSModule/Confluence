@@ -44,7 +44,7 @@ jobs:
       # Non-secret configuration the module's tests need, exposed as environment variables (not masked).
       TestVariables: >-
         {
-        "CONFLUENCE_API_BASE_URI": ${{ toJSON(vars.CONFLUENCE_API_BASE_URI) }},
+        "CONFLUENCE_SITE": ${{ toJSON(vars.CONFLUENCE_SITE) }},
         "CONFLUENCE_USERNAME": ${{ toJSON(vars.CONFLUENCE_USERNAME) }},
         "CONFLUENCE_SPACE_KEY": ${{ toJSON(vars.CONFLUENCE_SPACE_KEY) }}
         }

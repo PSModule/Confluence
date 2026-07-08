@@ -7,16 +7,26 @@ function Connect-Confluence {
         .DESCRIPTION
         Validates the supplied credentials with a lightweight authenticated call,
         stores them as a named context (the token is kept as a SecureString), and
-        records the context as the module default. A token that authenticates but
-        lacks the read:space scope still connects (with a warning).
+        records the context as the module default. Supply the site with -Site (a
+        name such as 'msxorg', a host, or a URL) and the cloud ID is resolved
+        automatically; or pass a known -CloudId directly to skip the lookup. A
+        token that authenticates but lacks the read:space scope still connects
+        (with a warning).
 
         .EXAMPLE
         ```powershell
         $token = Read-Host -AsSecureString
-        Connect-Confluence -ApiBaseUri $uri -Username $user -Token $token -SpaceKey 'DOCS'
+        Connect-Confluence -Site 'msxorg' -Username $user -Token $token -SpaceKey 'DOCS'
         ```
 
-        Connects with a scoped token and stores the profile with 'DOCS' as the default space.
+        Resolves the cloud ID for msxorg.atlassian.net, connects, and stores 'DOCS' as the default space.
+
+        .EXAMPLE
+        ```powershell
+        Connect-Confluence -CloudId 'fff64f40-36b7-4578-92be-b9d9b6b17658' -Username $user -Token $token
+        ```
+
+        Connects directly with a known cloud ID, skipping the site lookup.
 
         .LINK
         https://psmodule.io/Confluence/Functions/Auth/Connect-Confluence/
@@ -27,12 +37,18 @@ function Connect-Confluence {
         .LINK
         https://developer.atlassian.com/cloud/confluence/scopes-for-oauth-2-3LO-and-forge-apps/
     #>
-    [CmdletBinding(SupportsShouldProcess)]
+    [CmdletBinding(SupportsShouldProcess, DefaultParameterSetName = 'Site')]
     [OutputType([pscustomobject])]
     param(
-        # The Confluence API-gateway base URI, for example `https://api.atlassian.com/ex/confluence/<cloudId>`.
-        [Parameter(Mandatory)]
-        [string]$ApiBaseUri,
+        # The Confluence Cloud site: a name (`msxorg`), a host (`msxorg.atlassian.net`),
+        # or any URL on the site. The cloud ID is resolved automatically.
+        [Parameter(Mandatory, ParameterSetName = 'Site')]
+        [string]$Site,
+
+        # The Confluence Cloud ID - a faster alternative to -Site that skips the lookup.
+        # Find it with `ConvertTo-ConfluenceCloudId` or `Get-ConfluenceAccessibleResource`.
+        [Parameter(Mandatory, ParameterSetName = 'CloudId')]
+        [string]$CloudId,
 
         # The service-account user (email) used for HTTP Basic authentication.
         [Parameter(Mandatory)]
@@ -51,6 +67,13 @@ function Connect-Confluence {
         # Return the stored context.
         [switch]$PassThru
     )
+
+    if ($PSCmdlet.ParameterSetName -eq 'Site') {
+        # Resolve a site name/host/URL to its cloud ID via the public tenant_info endpoint.
+        $CloudId = ConvertTo-ConfluenceCloudId -Site $Site
+    }
+    # The scoped-token gateway base is always api.atlassian.com/ex/confluence/<cloudId>.
+    $ApiBaseUri = 'https://api.atlassian.com/ex/confluence/{0}' -f $CloudId
 
     if ([string]::IsNullOrEmpty($Name)) {
         # api.atlassian.com is shared by every Confluence Cloud site, so the host

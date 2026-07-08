@@ -40,6 +40,7 @@ Describe 'Confluence' {
                     'Get-ConfluenceSpace'
                     'Get-ConfluenceSiteInfo'
                     'ConvertTo-ConfluenceCloudId'
+                    'Get-ConfluenceAccessibleResource'
                     'New-ConfluencePage'
                     'Get-ConfluencePage'
                     'Set-ConfluencePage'
@@ -71,17 +72,17 @@ Describe 'Confluence' {
 
     # Integration tests run only when live credentials are provided. The calling workflow supplies
     # them through Process-PSModule's TestSecrets (CONFLUENCE_API_TOKEN, masked) and TestVariables
-    # (CONFLUENCE_API_BASE_URI, CONFLUENCE_USERNAME, CONFLUENCE_SPACE_KEY), which are exposed as
-    # environment variables. They are skipped locally and wherever the API token is not available.
+    # (CONFLUENCE_SITE, CONFLUENCE_USERNAME, CONFLUENCE_SPACE_KEY), which are exposed as environment
+    # variables. They are skipped locally and wherever the API token is not available.
     Context 'Integration' -Skip:([string]::IsNullOrEmpty($env:CONFLUENCE_API_TOKEN)) {
         BeforeAll {
             $secureToken = ConvertTo-SecureString -String $env:CONFLUENCE_API_TOKEN -AsPlainText -Force
             $connectParams = @{
-                ApiBaseUri = $env:CONFLUENCE_API_BASE_URI
-                Username   = $env:CONFLUENCE_USERNAME
-                Token      = $secureToken
-                SpaceKey   = $env:CONFLUENCE_SPACE_KEY
-                Name       = 'ci'
+                Site     = $env:CONFLUENCE_SITE
+                Username = $env:CONFLUENCE_USERNAME
+                Token    = $secureToken
+                SpaceKey = $env:CONFLUENCE_SPACE_KEY
+                Name     = 'ci'
             }
             Connect-Confluence @connectParams
         }
