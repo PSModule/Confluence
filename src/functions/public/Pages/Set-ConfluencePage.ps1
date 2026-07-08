@@ -39,8 +39,8 @@ function Set-ConfluencePage {
         [ValidateSet('storage', 'atlas_doc_format', 'wiki')]
         [string]$Representation = 'storage',
 
-        # The page status. Defaults to 'current'.
-        [string]$Status = 'current',
+        # The page status. Defaults to the page's current status.
+        [string]$Status,
 
         # The context to use: an object, a context name, or $null for the default.
         [object]$Context
@@ -50,10 +50,11 @@ function Set-ConfluencePage {
 
     $newTitle = if ($PSBoundParameters.ContainsKey('Title')) { $Title } else { $current.title }
     $newBody = if ($PSBoundParameters.ContainsKey('Body')) { $Body } else { $current.body.$Representation.value }
+    $newStatus = if ($PSBoundParameters.ContainsKey('Status')) { $Status } else { $current.status }
 
     $payload = @{
         id      = $PageId
-        status  = $Status
+        status  = $newStatus
         title   = $newTitle
         version = @{
             number = [int]$current.version.number + 1
