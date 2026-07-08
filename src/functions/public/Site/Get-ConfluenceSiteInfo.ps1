@@ -36,6 +36,7 @@ function Get-ConfluenceSiteInfo {
     # _links.base (the browsable site URL) appears on any v2 collection response;
     # try a couple so this works whether the token has read:space or only read:page.
     $siteUrl = $null
+    $lastError = $null
     foreach ($probe in '/wiki/api/v2/spaces', '/wiki/api/v2/pages') {
         try {
             $response = Invoke-ConfluenceRestMethod -ApiEndpoint $probe -Query @{ limit = 1 } -Context $Context
@@ -44,8 +45,12 @@ function Get-ConfluenceSiteInfo {
                 break
             }
         } catch {
+            $lastError = $_
             continue
         }
+    }
+    if (-not $siteUrl -and $lastError) {
+        Write-Verbose "Could not resolve the browsable site URL from the probe endpoints: $($lastError.Exception.Message)"
     }
 
     [pscustomobject]@{

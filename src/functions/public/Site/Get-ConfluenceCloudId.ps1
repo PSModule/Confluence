@@ -58,12 +58,16 @@ function Get-ConfluenceCloudId {
         }
 
         # Derive the host whether the caller passed a bare subdomain, a host, or a URL.
-        $siteHost = if ($trimmed -match '^[A-Za-z][A-Za-z0-9+.-]*://') {
-            ([uri]$trimmed).Host
-        } elseif ($trimmed -match '[/.]') {
-            ([uri]"https://$trimmed").Host
-        } else {
-            "$trimmed.atlassian.net"
+        try {
+            $siteHost = if ($trimmed -match '^[A-Za-z][A-Za-z0-9+.-]*://') {
+                ([uri]$trimmed).Host
+            } elseif ($trimmed -match '[/.]') {
+                ([uri]"https://$trimmed").Host
+            } else {
+                "$trimmed.atlassian.net"
+            }
+        } catch {
+            throw "Could not determine the site host from '$Site': $($_.Exception.Message)"
         }
 
         if ([string]::IsNullOrWhiteSpace($siteHost)) {

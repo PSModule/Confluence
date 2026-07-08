@@ -29,18 +29,29 @@
         }
     }
 
+    $dirty = $false
     if ($Force -or -not $stored) {
         $config = ConvertTo-ConfluenceHashtable -InputObject $script:Confluence.DefaultConfig
+        $dirty = $true
     } else {
         $config = ConvertTo-ConfluenceHashtable -InputObject $stored
         foreach ($key in $script:Confluence.DefaultConfig.Keys) {
             if (-not $config.ContainsKey($key)) {
                 $config[$key] = $script:Confluence.DefaultConfig[$key]
+                $dirty = $true
             }
         }
     }
 
-    $config['ID'] = $id
-    $null = Set-Context -ID $id -Context $config -Vault $vault
+    if ($config['ID'] -ne $id) {
+        $config['ID'] = $id
+        $dirty = $true
+    }
+
+    # Only persist when we actually created or changed the stored config, to avoid
+    # unnecessary vault writes on every cmdlet call (this runs from most cmdlets).
+    if ($dirty) {
+        $null = Set-Context -ID $id -Context $config -Vault $vault
+    }
     $script:Confluence.Config = $config
 }
