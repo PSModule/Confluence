@@ -1,5 +1,4 @@
-﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
-function Get-ConfluencePage {
+﻿function Get-ConfluencePage {
     <#
         .SYNOPSIS
         Get a Confluence page by id (read:page).

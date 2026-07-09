@@ -1,5 +1,4 @@
-﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
-function Set-ConfluenceContentProperty {
+﻿function Set-ConfluenceContentProperty {
     <#
         .SYNOPSIS
         Create or update a content property on a page (read:page and write:page).

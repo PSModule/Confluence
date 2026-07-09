@@ -1,5 +1,4 @@
-﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
-function Get-ConfluenceSiteInfo {
+﻿function Get-ConfluenceSiteInfo {
     <#
         .SYNOPSIS
         Get basic information about the connected Confluence site (read:space or read:page).

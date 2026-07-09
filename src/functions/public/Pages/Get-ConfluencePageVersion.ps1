@@ -1,5 +1,4 @@
-﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
-function Get-ConfluencePageVersion {
+﻿function Get-ConfluencePageVersion {
     <#
         .SYNOPSIS
         List the version history of a page (read:page).

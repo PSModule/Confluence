@@ -1,5 +1,4 @@
-﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
-function Get-ConfluenceDescendant {
+﻿function Get-ConfluenceDescendant {
     <#
         .SYNOPSIS
         List all descendants of a page (read:hierarchical-content).

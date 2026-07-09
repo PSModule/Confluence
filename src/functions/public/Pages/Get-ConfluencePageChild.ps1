@@ -1,5 +1,4 @@
-﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
-function Get-ConfluencePageChild {
+﻿function Get-ConfluencePageChild {
     <#
         .SYNOPSIS
         List the direct child pages of a page (read:page).

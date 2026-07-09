@@ -1,5 +1,4 @@
-﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
-function Get-ConfluenceBlogPost {
+﻿function Get-ConfluenceBlogPost {
     <#
         .SYNOPSIS
         Get blog posts (read:blogpost).

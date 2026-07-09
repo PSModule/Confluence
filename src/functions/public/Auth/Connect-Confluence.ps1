@@ -1,5 +1,4 @@
-﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
-function Connect-Confluence {
+﻿function Connect-Confluence {
     <#
         .SYNOPSIS
         Connect to Confluence and store a credential profile in the context vault.

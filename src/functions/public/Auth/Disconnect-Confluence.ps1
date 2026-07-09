@@ -1,5 +1,4 @@
-﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
-function Disconnect-Confluence {
+﻿function Disconnect-Confluence {
     <#
         .SYNOPSIS
         Remove a stored Confluence credential profile.

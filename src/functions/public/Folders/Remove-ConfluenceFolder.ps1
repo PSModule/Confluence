@@ -1,5 +1,4 @@
-﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
-function Remove-ConfluenceFolder {
+﻿function Remove-ConfluenceFolder {
     <#
         .SYNOPSIS
         Delete a Confluence folder (delete:folder).

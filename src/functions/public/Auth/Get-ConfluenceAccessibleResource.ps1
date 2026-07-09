@@ -1,5 +1,4 @@
-﻿#SkipTest:FunctionTest:Calls the public accessible-resources endpoint with a bearer token; covered by integration tests.
-function Get-ConfluenceAccessibleResource {
+﻿function Get-ConfluenceAccessibleResource {
     <#
         .SYNOPSIS
         List the Atlassian sites (resources) a token can reach.

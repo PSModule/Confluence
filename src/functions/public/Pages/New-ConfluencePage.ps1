@@ -1,5 +1,4 @@
-﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
-function New-ConfluencePage {
+﻿function New-ConfluencePage {
     <#
         .SYNOPSIS
         Create a Confluence page (write:page).

@@ -1,5 +1,4 @@
-﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
-function Get-ConfluenceCurrentUser {
+﻿function Get-ConfluenceCurrentUser {
     <#
         .SYNOPSIS
         Get the current (authenticated) user — Confluence's "me" endpoint (read:content-details).

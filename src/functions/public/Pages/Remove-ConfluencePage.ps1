@@ -1,5 +1,4 @@
-﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
-function Remove-ConfluencePage {
+﻿function Remove-ConfluencePage {
     <#
         .SYNOPSIS
         Delete a Confluence page (delete:page).

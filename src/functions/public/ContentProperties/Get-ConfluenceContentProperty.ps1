@@ -1,5 +1,4 @@
-﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
-function Get-ConfluenceContentProperty {
+﻿function Get-ConfluenceContentProperty {
     <#
         .SYNOPSIS
         Get content properties of a page (read:page).

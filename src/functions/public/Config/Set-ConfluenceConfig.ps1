@@ -1,5 +1,4 @@
-﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
-function Set-ConfluenceConfig {
+﻿function Set-ConfluenceConfig {
     <#
         .SYNOPSIS
         Set a Confluence module configuration value.

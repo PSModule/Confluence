@@ -1,5 +1,4 @@
-﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
-function Add-ConfluenceComment {
+﻿function Add-ConfluenceComment {
     <#
         .SYNOPSIS
         Add a footer comment to a page (write:comment).

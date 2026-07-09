@@ -1,5 +1,4 @@
-﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
-function Get-ConfluenceRestriction {
+﻿function Get-ConfluenceRestriction {
     <#
         .SYNOPSIS
         Get the content restrictions on a page (read:content-details).
