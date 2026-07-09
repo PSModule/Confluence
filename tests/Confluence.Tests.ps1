@@ -615,11 +615,29 @@ Describe 'Confluence' {
             }
 
             It 'Remove-ConfluenceAttachment deletes the attachment' {
-                { Remove-ConfluenceAttachment -AttachmentId $script:attachmentId -Context 'ci' } | Should -Not -Throw
+                # Confluence can briefly return HTTP 409 when an attachment is deleted immediately
+                # after upload (it is still being processed server-side). Retry the delete on a
+                # conflict so the test reflects the eventual-consistency behaviour rather than flaking.
+                $deleted = $false
+                $lastError = $null
+                foreach ($attempt in 1..5) {
+                    try {
+                        Remove-ConfluenceAttachment -AttachmentId $script:attachmentId -Context 'ci'
+                        $deleted = $true
+                        break
+                    } catch {
+                        $lastError = $_
+                        if ($_.Exception.Message -notmatch '409|[Cc]onflict') { throw }
+                        Start-Sleep -Seconds ($attempt * 2)
+                    }
+                }
                 LogGroup 'Attachments after removal' {
+                    if ($deleted) { Write-Host "Deleted attachment $($script:attachmentId)." }
+                    if ($lastError) { Write-Host "Transient conflict(s) handled: $($lastError.Exception.Message)" }
                     $remaining = Get-ConfluenceAttachment -PageId $script:attachPage.id -Context 'ci'
                     Write-Host ($remaining | Format-List | Out-String)
                 }
+                $deleted | Should -BeTrue
             }
         }
 
