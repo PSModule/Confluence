@@ -1,4 +1,5 @@
-﻿function Get-ConfluenceAccessibleResource {
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function Get-ConfluenceAccessibleResource {
     <#
         .SYNOPSIS
         List the Atlassian sites (resources) a token can reach.

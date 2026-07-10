@@ -43,7 +43,8 @@ function Update-ConfluenceSpace {
 
     # Read the current space (with its plain-text description) so a caller who
     # updates only one field does not blank the other on the full-body v1 PUT.
-    $response = Invoke-ConfluenceRestMethod -ApiEndpoint '/wiki/api/v2/spaces' -Query @{ keys = $Key; 'description-format' = 'plain' } -Context $Context
+    $query = @{ keys = $Key; 'description-format' = 'plain' }
+    $response = Invoke-ConfluenceRestMethod -ApiEndpoint '/wiki/api/v2/spaces' -Query $query -Context $Context
     $current = $response.results | Where-Object { $_.key -eq $Key } | Select-Object -First 1
     if (-not $current) {
         throw "Confluence space '$Key' was not found."
