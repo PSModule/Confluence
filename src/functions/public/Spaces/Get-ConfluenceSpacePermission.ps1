@@ -1,4 +1,5 @@
-﻿function Get-ConfluenceSpacePermission {
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function Get-ConfluenceSpacePermission {
     <#
         .SYNOPSIS
         List the permission assignments on a space (read:space).

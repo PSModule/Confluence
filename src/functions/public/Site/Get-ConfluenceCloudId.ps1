@@ -1,4 +1,5 @@
-﻿function Get-ConfluenceCloudId {
+﻿#SkipTest:FunctionTest:Resolves the cloud ID from the public tenant_info endpoint; covered by integration tests.
+function Get-ConfluenceCloudId {
     <#
         .SYNOPSIS
         Get the cloud ID for a Confluence Cloud site.

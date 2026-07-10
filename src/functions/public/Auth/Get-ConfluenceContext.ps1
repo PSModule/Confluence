@@ -1,4 +1,5 @@
-﻿function Get-ConfluenceContext {
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function Get-ConfluenceContext {
     <#
         .SYNOPSIS
         Get a stored Confluence credential profile.

@@ -1,4 +1,5 @@
-﻿function New-ConfluenceFolder {
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function New-ConfluenceFolder {
     <#
         .SYNOPSIS
         Create a Confluence folder (write:folder).

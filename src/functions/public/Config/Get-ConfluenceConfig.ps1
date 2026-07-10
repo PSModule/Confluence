@@ -1,4 +1,5 @@
-﻿function Get-ConfluenceConfig {
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function Get-ConfluenceConfig {
     <#
         .SYNOPSIS
         Get the Confluence module configuration.
@@ -25,10 +26,7 @@
 
     Initialize-ConfluenceConfig
     if ([string]::IsNullOrEmpty($Name)) {
-        # Return a shallow copy so callers cannot mutate the in-memory configuration cache by
-        # accident; changes must go through Set-ConfluenceConfig to be persisted. Cloning a small
-        # hashtable of scalars is negligible next to the vault I/O the module already performs.
-        return $script:Confluence.Config.Clone()
+        return $script:Confluence.Config
     }
     $script:Confluence.Config[$Name]
 }

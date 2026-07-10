@@ -1,4 +1,5 @@
-﻿function Remove-ConfluenceComment {
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function Remove-ConfluenceComment {
     <#
         .SYNOPSIS
         Delete a footer comment (delete:comment).

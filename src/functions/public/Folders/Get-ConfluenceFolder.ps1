@@ -1,4 +1,5 @@
-﻿function Get-ConfluenceFolder {
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function Get-ConfluenceFolder {
     <#
         .SYNOPSIS
         Get a Confluence folder by id (read:folder).

@@ -1,4 +1,5 @@
-﻿function Add-ConfluenceLabel {
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function Add-ConfluenceLabel {
     <#
         .SYNOPSIS
         Add one or more labels to a page (read:label and write:label).

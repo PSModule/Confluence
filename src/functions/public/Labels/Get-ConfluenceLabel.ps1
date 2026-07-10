@@ -1,4 +1,5 @@
-﻿function Get-ConfluenceLabel {
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function Get-ConfluenceLabel {
     <#
         .SYNOPSIS
         List the labels on a page (read:page).

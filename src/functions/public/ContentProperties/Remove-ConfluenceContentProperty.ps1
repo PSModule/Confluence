@@ -1,4 +1,5 @@
-﻿function Remove-ConfluenceContentProperty {
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function Remove-ConfluenceContentProperty {
     <#
         .SYNOPSIS
         Delete a content property from a page (read:page and write:page).
