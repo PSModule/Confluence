@@ -27,8 +27,8 @@ permissions:
 
 jobs:
   Process-PSModule:
-    # The TestData secret (PR #365) shipped in v6.0.0; pinned to the current release v6.1.0.
-    uses: PSModule/Process-PSModule/.github/workflows/workflow.yml@0d7a2f0b9422ad727886d1ef79d1874ccc358fd7 # v6.1.0
+    # The TestData secret (PR #365) shipped in v6.0.0; pinned to the current release v6.1.1.
+    uses: PSModule/Process-PSModule/.github/workflows/workflow.yml@ea19a3eb1293246d1b00e4faae1544442c3be0ec # v6.1.1
     secrets:
       # PowerShell Gallery API key used to publish the module.
       APIKey: ${{ secrets.APIKey }}
