@@ -19,7 +19,7 @@ $page = New-ConfluencePage -SpaceId $space.id -Title 'Release notes' -Body '<p>F
 Get-ConfluencePage -PageId $page.id
 
 # Update the body (the version number is incremented automatically)
-Set-ConfluencePage -PageId $page.id -Body '<p>Updated content</p>'
+Update-ConfluencePage -PageId $page.id -Body '<p>Updated content</p>'
 
 # Add a child page, then list children and descendants
 New-ConfluencePage -SpaceId $space.id -Title 'Details' -ParentId $page.id -Body '<p>Nested</p>'

@@ -27,7 +27,7 @@ Connect-Confluence -Site 'yoursite' -Username 'you@example.com' -Token $token -S
 # Work with content
 $space = Get-ConfluenceSpace -Key 'DOCS'
 $page = New-ConfluencePage -SpaceId $space.id -Title 'Release notes' -Body '<p>Hello</p>'
-Set-ConfluencePage -PageId $page.id -Body '<p>Updated</p>'
+Update-ConfluencePage -PageId $page.id -Body '<p>Updated</p>'
 Get-ConfluencePageChild -PageId $page.id
 ```
 

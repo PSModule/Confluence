@@ -1,4 +1,5 @@
-﻿function Set-ConfluencePage {
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function Update-ConfluencePage {
     <#
         .SYNOPSIS
         Update a Confluence page (read:page and write:page).
@@ -11,13 +12,13 @@
 
         .EXAMPLE
         ```powershell
-        Set-ConfluencePage -PageId '12345' -Body '<p>Updated</p>'
+        Update-ConfluencePage -PageId '12345' -Body '<p>Updated</p>'
         ```
 
         Updates the body of page 12345, incrementing its version.
 
         .LINK
-        https://psmodule.io/Confluence/Functions/Pages/Set-ConfluencePage/
+        https://psmodule.io/Confluence/Functions/Pages/Update-ConfluencePage/
 
         .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-page/

@@ -90,7 +90,7 @@ delete:whiteboard:confluence
 | `read:space:confluence` | `Get-ConfluenceSpace`, `Get-ConfluenceSiteInfo` |
 | `read:space.permission:confluence` | `Get-ConfluenceSpacePermission` |
 | `read:space.property:confluence` | `Get-ConfluenceSpaceProperty` |
-| `read:page:confluence` | `Get-ConfluencePage`, `Get-ConfluencePageChild`, `Get-ConfluencePageVersion`, `Set-ConfluencePage` (reads before updating) |
+| `read:page:confluence` | `Get-ConfluencePage`, `Get-ConfluencePageChild`, `Get-ConfluencePageVersion`, `Update-ConfluencePage` (reads before updating) |
 | `read:folder:confluence` | `Get-ConfluenceFolder` |
 | `read:attachment:confluence` | `Get-ConfluenceAttachment` |
 | `read:comment:confluence` | `Get-ConfluenceComment` |
@@ -98,7 +98,7 @@ delete:whiteboard:confluence
 | `read:content.property:confluence` | `Get-ConfluenceContentProperty` |
 | `read:hierarchical-content:confluence` | `Get-ConfluenceDescendant` |
 | `read:content-details:confluence` | `Get-ConfluenceRestriction`, `Get-ConfluenceCurrentUser`, `Add-ConfluenceAttachment` (upload) |
-| `write:page:confluence` | `New-ConfluencePage`, `Set-ConfluencePage` |
+| `write:page:confluence` | `New-ConfluencePage`, `Update-ConfluencePage` |
 | `write:folder:confluence` | `New-ConfluenceFolder` |
 | `write:attachment:confluence` | `Add-ConfluenceAttachment` |
 | `write:comment:confluence` | `Add-ConfluenceComment` |
@@ -145,9 +145,15 @@ candidate cmdlets it would enable (verbs in `{}` share one scope family):
 - **Asymmetric sets** worth noting: `whiteboard` is delete-only; `embed` has
   write/delete but no read; `audit-log` is write-only. Commands for those can only
   cover the granted verbs.
-- This set has **no space-administration write** scope (`write:space` /
-  `delete:space`): the token can read space settings, permissions and properties
-  but cannot create, update or delete spaces.
+- The module provides space-administration commands (`New-ConfluenceSpace`,
+  `Update-ConfluenceSpace`, `Set-ConfluenceSpace`, `Remove-ConfluenceSpace`), but
+  this token set has **no
+  space-administration write** scope (`write:space` / `delete:space`): the token
+  can read space settings, permissions and properties but cannot create, update
+  or delete spaces until `write:space:confluence` and `delete:space:confluence`
+  are added (space delete also needs `read:content.metadata:confluence`). Space
+  create/update/delete are v1-only operations, and delete is asynchronous (the
+  API returns HTTP 202 with a long-running task).
 - A few commands reach v1 endpoints that Atlassian maps to these granular scopes:
   label add/remove (`write:label:confluence`), attachment upload
   (`write:attachment:confluence` plus `read:content-details:confluence`), page
