@@ -38,7 +38,7 @@ function Invoke-ConfluenceRestMethod {
     [CmdletBinding()]
     [OutputType([object])]
     param(
-        # The API path beginning with '/wiki/', e.g. '/wiki/api/v2/pages'.
+        # The API path beginning with `/wiki/`, e.g. `/wiki/api/v2/pages`.
         # A full absolute URL is also accepted (used when following pagination links).
         # When -ApiVersion is supplied this is treated as a path relative to that
         # API family's root (e.g. -ApiVersion v2 -ApiEndpoint 'spaces').
@@ -46,7 +46,7 @@ function Invoke-ConfluenceRestMethod {
         [string]$ApiEndpoint,
 
         # Optional API family. Uses the internal map to prepend the version prefix
-        # (v1 -> /wiki/rest/api, v2 -> /wiki/api/v2) to a relative -ApiEndpoint.
+        # (v1 -> `/wiki/rest/api`, v2 -> `/wiki/api/v2`) to a relative -ApiEndpoint.
         [ValidateSet('v1', 'v2')]
         [string]$ApiVersion,
 
