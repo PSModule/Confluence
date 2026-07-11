@@ -5,7 +5,7 @@ function Remove-ConfluenceAttachment {
         Delete an attachment (delete:attachment).
 
         .DESCRIPTION
-        Deletes an attachment by id.
+        Deletes an attachment by ID.
 
         .EXAMPLE
         ```powershell
@@ -22,7 +22,7 @@ function Remove-ConfluenceAttachment {
     #>
     [CmdletBinding(SupportsShouldProcess)]
     param(
-        # The attachment id.
+        # The attachment ID.
         [Parameter(Mandatory)]
         [string]$AttachmentId,
 

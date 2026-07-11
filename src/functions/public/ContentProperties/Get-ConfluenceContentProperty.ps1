@@ -25,7 +25,7 @@ function Get-ConfluenceContentProperty {
     #>
     [CmdletBinding()]
     param(
-        # The page id.
+        # The page ID.
         [Parameter(Mandatory)]
         [string]$PageId,
 

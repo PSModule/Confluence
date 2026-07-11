@@ -22,7 +22,7 @@ function Remove-ConfluenceLabel {
     #>
     [CmdletBinding(SupportsShouldProcess)]
     param(
-        # The page (content) id.
+        # The page (content) ID.
         [Parameter(Mandatory)]
         [string]$PageId,
 

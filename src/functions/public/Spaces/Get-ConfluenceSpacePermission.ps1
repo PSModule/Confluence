@@ -27,7 +27,7 @@ function Get-ConfluenceSpacePermission {
     #>
     [CmdletBinding()]
     param(
-        # The space id whose permission assignments are returned.
+        # The space ID whose permission assignments are returned.
         [Parameter(Mandatory)]
         [string]$SpaceId,
 

@@ -22,7 +22,7 @@ function Remove-ConfluenceFolder {
     #>
     [CmdletBinding(SupportsShouldProcess)]
     param(
-        # The folder id to delete.
+        # The folder ID to delete.
         [Parameter(Mandatory)]
         [string]$FolderId,
 

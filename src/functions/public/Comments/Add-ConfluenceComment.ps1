@@ -22,7 +22,7 @@ function Add-ConfluenceComment {
     #>
     [CmdletBinding(SupportsShouldProcess)]
     param(
-        # The page id to comment on.
+        # The page ID to comment on.
         [Parameter(Mandatory)]
         [string]$PageId,
 

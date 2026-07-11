@@ -22,7 +22,7 @@ function Get-ConfluenceSpaceProperty {
     #>
     [CmdletBinding()]
     param(
-        # The space id.
+        # The space ID.
         [Parameter(Mandatory)]
         [string]$SpaceId,
 

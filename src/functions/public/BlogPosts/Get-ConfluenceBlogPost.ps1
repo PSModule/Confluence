@@ -5,7 +5,7 @@ function Get-ConfluenceBlogPost {
         Get blog posts (read:blogpost).
 
         .DESCRIPTION
-        Returns a single blog post by id, the blog posts in a space, or all blog
+        Returns a single blog post by ID, the blog posts in a space, or all blog
         posts across the site, following pagination.
 
         .EXAMPLE
@@ -23,11 +23,11 @@ function Get-ConfluenceBlogPost {
     #>
     [CmdletBinding(DefaultParameterSetName = 'List')]
     param(
-        # A single blog post id to return.
+        # A single blog post ID to return.
         [Parameter(Mandatory, ParameterSetName = 'ById')]
         [string]$BlogPostId,
 
-        # List blog posts in this space id. Omit to list across the whole site.
+        # List blog posts in this space ID. Omit to list across the whole site.
         [Parameter(ParameterSetName = 'List')]
         [string]$SpaceId,
 

@@ -6,7 +6,7 @@ function Add-ConfluenceLabel {
 
         .DESCRIPTION
         Adds labels to a page. Confluence exposes label creation only on the v1
-        content endpoint (/wiki/rest/api/content/{id}/label), which the granular
+        content endpoint (`/wiki/rest/api/content/{id}/label`), which the granular
         read:label and write:label scopes authorise.
 
         .EXAMPLE
@@ -24,7 +24,7 @@ function Add-ConfluenceLabel {
     #>
     [CmdletBinding(SupportsShouldProcess)]
     param(
-        # The page (content) id to label.
+        # The page (content) ID to label.
         [Parameter(Mandatory)]
         [string]$PageId,
 

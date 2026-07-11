@@ -5,7 +5,7 @@ function Remove-ConfluenceComment {
         Delete a footer comment (delete:comment).
 
         .DESCRIPTION
-        Permanently deletes a footer comment by id.
+        Permanently deletes a footer comment by ID.
 
         .EXAMPLE
         ```powershell
@@ -22,7 +22,7 @@ function Remove-ConfluenceComment {
     #>
     [CmdletBinding(SupportsShouldProcess)]
     param(
-        # The footer comment id.
+        # The footer comment ID.
         [Parameter(Mandatory)]
         [string]$CommentId,
 

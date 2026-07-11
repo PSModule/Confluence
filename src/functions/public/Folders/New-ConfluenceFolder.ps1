@@ -22,7 +22,7 @@ function New-ConfluenceFolder {
     #>
     [CmdletBinding(SupportsShouldProcess)]
     param(
-        # The id of the space to create the folder in.
+        # The ID of the space to create the folder in.
         [Parameter(Mandatory)]
         [string]$SpaceId,
 
@@ -30,7 +30,7 @@ function New-ConfluenceFolder {
         [Parameter(Mandatory)]
         [string]$Title,
 
-        # The id of the parent page or folder. Omit to create at the space root.
+        # The ID of the parent page or folder. Omit to create at the space root.
         [string]$ParentId,
 
         # The context to use: an object, a context name, or $null for the default.

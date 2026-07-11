@@ -23,7 +23,7 @@ function Get-ConfluenceDescendant {
     #>
     [CmdletBinding()]
     param(
-        # The ancestor page id.
+        # The ancestor page ID.
         [Parameter(Mandatory)]
         [string]$PageId,
 

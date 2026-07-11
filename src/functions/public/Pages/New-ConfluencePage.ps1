@@ -23,7 +23,7 @@ function New-ConfluencePage {
     #>
     [CmdletBinding(SupportsShouldProcess)]
     param(
-        # The id of the space to create the page in.
+        # The ID of the space to create the page in.
         [Parameter(Mandatory)]
         [string]$SpaceId,
 
@@ -31,7 +31,7 @@ function New-ConfluencePage {
         [Parameter(Mandatory)]
         [string]$Title,
 
-        # The id of the parent page. Omit to create a top-level page.
+        # The ID of the parent page. Omit to create a top-level page.
         [string]$ParentId,
 
         # The page body in the chosen representation. Defaults to empty.

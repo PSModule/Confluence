@@ -24,7 +24,7 @@ function Get-ConfluenceLabel {
     #>
     [CmdletBinding()]
     param(
-        # The page id.
+        # The page ID.
         [Parameter(Mandatory)]
         [string]$PageId,
 

@@ -5,7 +5,7 @@ function Get-ConfluenceAttachment {
         Get page attachments (read:attachment).
 
         .DESCRIPTION
-        Lists the attachments on a page, or returns a single attachment by id.
+        Lists the attachments on a page, or returns a single attachment by ID.
 
         .EXAMPLE
         ```powershell
@@ -22,11 +22,11 @@ function Get-ConfluenceAttachment {
     #>
     [CmdletBinding(DefaultParameterSetName = 'ByPage')]
     param(
-        # The page id whose attachments are listed.
+        # The page ID whose attachments are listed.
         [Parameter(Mandatory, ParameterSetName = 'ByPage')]
         [string]$PageId,
 
-        # A single attachment id to return.
+        # A single attachment ID to return.
         [Parameter(Mandatory, ParameterSetName = 'ById')]
         [string]$AttachmentId,
 

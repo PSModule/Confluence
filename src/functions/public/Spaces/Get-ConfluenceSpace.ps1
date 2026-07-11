@@ -5,7 +5,7 @@ function Get-ConfluenceSpace {
         Get a Confluence space (read:space).
 
         .DESCRIPTION
-        Returns a space by key or by id. When neither is supplied the default
+        Returns a space by key or by ID. When neither is supplied the default
         space key from the connected context is used.
 
         .EXAMPLE
@@ -27,7 +27,7 @@ function Get-ConfluenceSpace {
         [Parameter(ParameterSetName = 'ByKey')]
         [string]$Key,
 
-        # The space id.
+        # The space ID.
         [Parameter(Mandatory, ParameterSetName = 'ById')]
         [string]$Id,
 

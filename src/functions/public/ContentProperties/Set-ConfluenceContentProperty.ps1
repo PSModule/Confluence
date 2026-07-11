@@ -25,7 +25,7 @@ function Set-ConfluenceContentProperty {
     #>
     [CmdletBinding(SupportsShouldProcess)]
     param(
-        # The page id.
+        # The page ID.
         [Parameter(Mandatory)]
         [string]$PageId,
 

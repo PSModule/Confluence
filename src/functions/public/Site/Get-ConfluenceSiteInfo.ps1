@@ -5,7 +5,7 @@ function Get-ConfluenceSiteInfo {
         Get basic information about the connected Confluence site (read:space or read:page).
 
         .DESCRIPTION
-        Returns the site's cloud id (parsed from the API-gateway base URI) and
+        Returns the site's cloud ID (parsed from the API-gateway base URI) and
         the browsable site (wiki) base URL (read from the API's _links.base). A
         scoped v2 token cannot reach the dedicated site/settings endpoints (site
         name, edition, build number) — those are v1-only and are rejected.

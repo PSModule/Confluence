@@ -5,7 +5,7 @@ function Remove-ConfluenceContentProperty {
         Delete a content property from a page (read:page and write:page).
 
         .DESCRIPTION
-        Deletes a content property by its id. In v2, page content properties are
+        Deletes a content property by its ID. In v2, page content properties are
         governed by the page's own scope (read:page and write:page).
 
         .EXAMPLE
@@ -23,11 +23,11 @@ function Remove-ConfluenceContentProperty {
     #>
     [CmdletBinding(SupportsShouldProcess)]
     param(
-        # The page id.
+        # The page ID.
         [Parameter(Mandatory)]
         [string]$PageId,
 
-        # The content-property id.
+        # The content-property ID.
         [Parameter(Mandatory)]
         [string]$PropertyId,
 

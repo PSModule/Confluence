@@ -22,7 +22,7 @@ function Get-ConfluencePageChild {
     #>
     [CmdletBinding()]
     param(
-        # The parent page id.
+        # The parent page ID.
         [Parameter(Mandatory)]
         [string]$PageId,
 

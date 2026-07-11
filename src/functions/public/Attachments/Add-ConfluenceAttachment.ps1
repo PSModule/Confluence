@@ -7,7 +7,7 @@ function Add-ConfluenceAttachment {
         .DESCRIPTION
         Uploads a file as a page attachment. Confluence exposes attachment
         creation only on the v1 content endpoint
-        (/wiki/rest/api/content/{id}/child/attachment), which requires BOTH
+        (`/wiki/rest/api/content/{id}/child/attachment`), which requires BOTH
         read:content-details and write:attachment. A token with write:attachment
         but without read:content-details is rejected with a scope-check 401.
 
@@ -26,7 +26,7 @@ function Add-ConfluenceAttachment {
     #>
     [CmdletBinding(SupportsShouldProcess)]
     param(
-        # The page (content) id to attach the file to.
+        # The page (content) ID to attach the file to.
         [Parameter(Mandatory)]
         [string]$PageId,
 

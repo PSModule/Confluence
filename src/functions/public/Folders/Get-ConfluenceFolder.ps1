@@ -2,7 +2,7 @@
 function Get-ConfluenceFolder {
     <#
         .SYNOPSIS
-        Get a Confluence folder by id (read:folder).
+        Get a Confluence folder by ID (read:folder).
 
         .DESCRIPTION
         Returns a single folder.
@@ -22,7 +22,7 @@ function Get-ConfluenceFolder {
     #>
     [CmdletBinding()]
     param(
-        # The folder id.
+        # The folder ID.
         [Parameter(Mandatory)]
         [string]$FolderId,
 

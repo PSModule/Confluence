@@ -25,7 +25,7 @@ function Update-ConfluencePage {
     #>
     [CmdletBinding(SupportsShouldProcess)]
     param(
-        # The page id to update.
+        # The page ID to update.
         [Parameter(Mandatory)]
         [string]$PageId,
 

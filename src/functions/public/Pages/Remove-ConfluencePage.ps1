@@ -26,7 +26,7 @@ function Remove-ConfluencePage {
     #>
     [CmdletBinding(SupportsShouldProcess)]
     param(
-        # The page id to delete.
+        # The page ID to delete.
         [Parameter(Mandatory)]
         [string]$PageId,
 

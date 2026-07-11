@@ -2,7 +2,7 @@
 function Get-ConfluencePage {
     <#
         .SYNOPSIS
-        Get a Confluence page by id (read:page).
+        Get a Confluence page by ID (read:page).
 
         .DESCRIPTION
         Returns a single page, including its body in the requested format.
@@ -22,7 +22,7 @@ function Get-ConfluencePage {
     #>
     [CmdletBinding()]
     param(
-        # The page id.
+        # The page ID.
         [Parameter(Mandatory)]
         [string]$PageId,
 
