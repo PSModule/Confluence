@@ -26,7 +26,10 @@ function Get-ConfluenceConfig {
 
     Initialize-ConfluenceConfig
     if ([string]::IsNullOrEmpty($Name)) {
-        return $script:Confluence.Config
+        # Return a shallow copy so callers cannot mutate the in-memory configuration cache by
+        # accident; changes must go through Set-ConfluenceConfig to be persisted. Cloning a small
+        # hashtable of scalars is negligible next to the vault I/O the module already performs.
+        return $script:Confluence.Config.Clone()
     }
     $script:Confluence.Config[$Name]
 }
