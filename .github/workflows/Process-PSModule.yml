@@ -27,19 +27,17 @@ permissions:
 
 jobs:
   Process-PSModule:
-    # The TestData secret (PR #365) shipped in v6.0.0; pinned to the current release v6.1.4.
     uses: PSModule/Process-PSModule/.github/workflows/workflow.yml@da180bac16b13bfbcdf08b2e4e221b5b49e5ff28 # v6.1.4
     secrets:
-      # PowerShell Gallery API key used to publish the module.
       APIKey: ${{ secrets.APIKey }}
-      # All data the module's tests need, in one object: a "secrets" map (masked) and a "variables"
-      # map (not masked), each entry exposed as an environment variable. Only what the tests require
-      # is passed - secrets: inherit is intentionally not used. Integration tests skip when
-      # CONFLUENCE_API_TOKEN is unavailable (forks / PRs without access). Secrets use the direct
-      # "${{ secrets.X }}" form (CodeQL-clean) and the whole blob is one folded line so GitHub
-      # registers a single mask.
       TestData: >-
-        { "secrets": { "CONFLUENCE_API_TOKEN": "${{ secrets.CONFLUENCE_API_TOKEN }}" },
-        "variables": { "CONFLUENCE_SITE": ${{ toJSON(vars.CONFLUENCE_SITE) }},
-        "CONFLUENCE_USERNAME": ${{ toJSON(vars.CONFLUENCE_USERNAME) }},
-        "CONFLUENCE_SPACE_KEY": ${{ toJSON(vars.CONFLUENCE_SPACE_KEY) }} } }
+        {
+          "secrets": {
+            "CONFLUENCE_API_TOKEN": "${{ secrets.CONFLUENCE_API_TOKEN }}"
+          },
+          "variables": {
+            "CONFLUENCE_SITE": "${{ vars.CONFLUENCE_SITE }}",
+            "CONFLUENCE_USERNAME": "${{ vars.CONFLUENCE_USERNAME }}",
+            "CONFLUENCE_SPACE_KEY": "${{ vars.CONFLUENCE_SPACE_KEY }}"
+          }
+        }
