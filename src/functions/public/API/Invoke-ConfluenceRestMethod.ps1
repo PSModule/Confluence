@@ -75,7 +75,10 @@ function Invoke-ConfluenceRestMethod {
     }
 
     # Resolve a relative endpoint against the internal v1/v2 map when a version is given.
-    if ($ApiVersion -and $ApiEndpoint -notmatch '^https?://') {
+    # An endpoint that is already absolute - a full URL, or one that already carries the
+    # /wiki/... root - is used as-is, so combining -ApiVersion with an already-versioned path
+    # does not double the prefix (e.g. /wiki/api/v2/wiki/api/v2/spaces).
+    if ($ApiVersion -and $ApiEndpoint -notmatch '^https?://' -and $ApiEndpoint -notlike '/wiki/*') {
         $ApiEndpoint = '{0}/{1}' -f $script:Confluence.ApiPaths[$ApiVersion], $ApiEndpoint.TrimStart('/')
     }
 
