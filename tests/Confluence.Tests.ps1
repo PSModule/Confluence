@@ -154,7 +154,12 @@ Describe 'Confluence' {
         }
 
         AfterAll {
-            Get-ConfluenceContext -ListAvailable | ForEach-Object { Disconnect-Confluence -Name $_.Name -ErrorAction SilentlyContinue }
+            # Only remove the contexts this suite created ('ci' and, if a test left it behind,
+            # 'ci-secondary'); never disconnect a contributor's other stored Confluence contexts
+            # when the integration tests are run locally.
+            foreach ($contextName in 'ci', 'ci-secondary') {
+                Disconnect-Confluence -Name $contextName -ErrorAction SilentlyContinue
+            }
             Write-Host ('-' * 60)
         }
 
