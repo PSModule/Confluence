@@ -41,28 +41,41 @@ function Remove-ConfluencePage {
         [object]$Context
     )
 
-    if ($Recurse) {
-        $children = Get-ConfluencePageChild -PageId $PageId -Context $Context
-        foreach ($child in $children) {
-            Remove-ConfluencePage -PageId $child.id -Recurse -Purge:$Purge -Context $Context
-        }
-    }
-
     $base = "/wiki/api/v2/pages/$PageId"
     $action = if ($Purge) { 'Permanently delete Confluence page' } else { 'Delete Confluence page' }
 
-    if ($PSCmdlet.ShouldProcess($PageId, $action)) {
-        if ($Purge) {
-            # A page must be in the trash before it can be purged. Trash first
-            # (ignoring failures, e.g. when it is already trashed), then purge.
-            try {
-                Invoke-ConfluenceRestMethod -ApiEndpoint $base -Method 'DELETE' -Context $Context
-            } catch {
-                Write-Verbose "Trash step before purge failed (the page may already be trashed): $($_.Exception.Message)"
-            }
-            Invoke-ConfluenceRestMethod -ApiEndpoint ('{0}?purge=true' -f $base) -Method 'DELETE' -Context $Context
-        } else {
-            Invoke-ConfluenceRestMethod -ApiEndpoint $base -Method 'DELETE' -Context $Context
+    # Confirm the root deletion up front so that declining -Confirm never leaves a partially
+    # deleted subtree. ShouldProcess returns $false for both -WhatIf and a declined prompt; a
+    # -WhatIf run should still enumerate the whole subtree, so only stop early on a real decline.
+    $approved = $PSCmdlet.ShouldProcess($PageId, $action)
+    if (-not $approved -and -not $WhatIfPreference) {
+        return
+    }
+
+    if ($Recurse) {
+        # Children are removed before the parent (required by -Purge). The root is already
+        # confirmed, so the per-child prompt is suppressed; -WhatIf still propagates so a dry
+        # run lists the entire subtree.
+        $children = Get-ConfluencePageChild -PageId $PageId -Context $Context
+        foreach ($child in $children) {
+            Remove-ConfluencePage -PageId $child.id -Recurse -Purge:$Purge -Context $Context -Confirm:$false
         }
+    }
+
+    if (-not $approved) {
+        return
+    }
+
+    if ($Purge) {
+        # A page must be in the trash before it can be purged. Trash first
+        # (ignoring failures, e.g. when it is already trashed), then purge.
+        try {
+            Invoke-ConfluenceRestMethod -ApiEndpoint $base -Method 'DELETE' -Context $Context
+        } catch {
+            Write-Verbose "Trash step before purge failed (the page may already be trashed): $($_.Exception.Message)"
+        }
+        Invoke-ConfluenceRestMethod -ApiEndpoint ('{0}?purge=true' -f $base) -Method 'DELETE' -Context $Context
+    } else {
+        Invoke-ConfluenceRestMethod -ApiEndpoint $base -Method 'DELETE' -Context $Context
     }
 }
