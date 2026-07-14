@@ -34,7 +34,9 @@ function New-ConfluencePage {
         # The ID of the parent page. Omit to create a top-level page.
         [string]$ParentId,
 
-        # The page body in the chosen representation. Defaults to empty.
+        # The page body, as a string in the chosen representation. For 'atlas_doc_format' pass
+        # the ADF document serialized as a JSON string - the v2 API stores body.value as a string
+        # for every representation. Defaults to empty.
         [string]$Body = '',
 
         # The body representation. Defaults to 'storage'.

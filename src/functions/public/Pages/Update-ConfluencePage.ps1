@@ -32,7 +32,9 @@ function Update-ConfluencePage {
         # The new title. Defaults to the existing title.
         [string]$Title,
 
-        # The new body. Defaults to the existing body.
+        # The new body, as a string in the chosen representation. For 'atlas_doc_format' pass the
+        # ADF document serialized as a JSON string (the v2 API stores body.value as a string for
+        # every representation). Defaults to the existing body.
         [string]$Body,
 
         # The body representation. Defaults to 'storage'.

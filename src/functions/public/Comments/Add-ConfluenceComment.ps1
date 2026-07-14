@@ -26,7 +26,9 @@ function Add-ConfluenceComment {
         [Parameter(Mandatory)]
         [string]$PageId,
 
-        # The comment body.
+        # The comment body, as a string in the chosen representation. For 'atlas_doc_format' pass
+        # the ADF document serialized as a JSON string (the v2 API stores body.value as a string
+        # for every representation).
         [Parameter(Mandatory)]
         [string]$Body,
 
