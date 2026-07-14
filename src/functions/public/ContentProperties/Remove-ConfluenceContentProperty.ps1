@@ -1,0 +1,41 @@
+﻿#SkipTest:FunctionTest:Integration tests are added once the repository Confluence credentials are configured.
+function Remove-ConfluenceContentProperty {
+    <#
+        .SYNOPSIS
+        Delete a content property from a page (read:page and write:page).
+
+        .DESCRIPTION
+        Deletes a content property by its ID. In v2, page content properties are
+        governed by the page's own scope (read:page and write:page).
+
+        .EXAMPLE
+        ```powershell
+        Remove-ConfluenceContentProperty -PageId '12345' -PropertyId '98765'
+        ```
+
+        Deletes the content property with ID 98765 from page 12345.
+
+        .LINK
+        https://psmodule.io/Confluence/Functions/ContentProperties/Remove-ConfluenceContentProperty/
+
+        .LINK
+        https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-content-properties/
+    #>
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
+        # The page ID.
+        [Parameter(Mandatory)]
+        [string]$PageId,
+
+        # The content-property ID.
+        [Parameter(Mandatory)]
+        [string]$PropertyId,
+
+        # The context to use: an object, a context name, or $null for the default.
+        [object]$Context
+    )
+
+    if ($PSCmdlet.ShouldProcess("$PageId/$PropertyId", 'Delete content property')) {
+        Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/pages/$PageId/properties/$PropertyId" -Method 'DELETE' -Context $Context
+    }
+}
