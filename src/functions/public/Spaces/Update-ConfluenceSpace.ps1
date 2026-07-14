@@ -51,7 +51,18 @@ function Update-ConfluenceSpace {
     }
 
     $newName = if ($PSBoundParameters.ContainsKey('Name')) { $Name } else { $current.name }
-    $newDescription = if ($PSBoundParameters.ContainsKey('Description')) { $Description } else { [string]$current.description.plain.value }
+    $newDescription = if ($PSBoundParameters.ContainsKey('Description')) {
+        $Description
+    } else {
+        # 'description' is optional in the v2 space response, so navigate it defensively:
+        # a space without one preserves an empty description instead of failing (and stays
+        # safe under Set-StrictMode, where blindly dereferencing a missing member throws).
+        if ($current.description -and $current.description.plain) {
+            [string]$current.description.plain.value
+        } else {
+            ''
+        }
+    }
 
     $payload = @{
         key         = $Key
