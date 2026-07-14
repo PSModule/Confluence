@@ -110,7 +110,7 @@ Describe 'Confluence' {
         $env:CONFLUENCE_SITE
         $env:CONFLUENCE_USERNAME
         $env:CONFLUENCE_SPACE_KEY
-    ) | Where-Object { [string]::IsNullOrEmpty($_) }
+    ) | Where-Object { [string]::IsNullOrWhiteSpace($_) }
 
     Context 'Integration' -Skip:(@($missingIntegrationVars).Count -gt 0) {
         BeforeAll {
@@ -671,7 +671,22 @@ Describe 'Confluence' {
             }
 
             It 'Remove-ConfluenceAttachment deletes the attachment' {
-                { Remove-ConfluenceAttachment -AttachmentId $script:attachmentId -Context 'ci' } | Should -Not -Throw
+                # Confluence Cloud can briefly return HTTP 409 ('Encountered conflict deleting
+                # attachment') when an attachment is removed shortly after it is uploaded, while
+                # the upload is still being reconciled server-side. Retry the delete so this
+                # eventual-consistency window does not fail the run; a non-conflict error, or a
+                # conflict that never clears, still surfaces and fails the test.
+                {
+                    for ($attempt = 1; $attempt -le 4; $attempt++) {
+                        try {
+                            Remove-ConfluenceAttachment -AttachmentId $script:attachmentId -Context 'ci'
+                            break
+                        } catch {
+                            if ($_.Exception.Message -notmatch 'HTTP 409|conflict' -or $attempt -eq 4) { throw }
+                            Start-Sleep -Seconds 2
+                        }
+                    }
+                } | Should -Not -Throw
                 LogGroup 'Attachments after removal' {
                     $remaining = Get-ConfluenceAttachment -PageId $script:attachPage.id -Context 'ci'
                     Write-Host ($remaining | Format-List | Out-String)

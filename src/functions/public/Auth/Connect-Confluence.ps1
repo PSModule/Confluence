@@ -133,7 +133,9 @@ function Connect-Confluence {
     }
 
     $stored = Set-Context -ID $Name -Context $context -Vault $script:Confluence.ContextVault -PassThru
-    Set-ConfluenceConfig -Name 'DefaultContext' -Value $Name
+    # The outer cmdlet already confirmed this operation; suppress the inner cmdlet's own
+    # ShouldProcess prompt so -Confirm does not trigger a second, nested confirmation.
+    Set-ConfluenceConfig -Name 'DefaultContext' -Value $Name -Confirm:$false
 
     if ($PassThru) {
         $stored

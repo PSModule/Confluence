@@ -35,7 +35,9 @@ function Disconnect-Confluence {
     if ($PSCmdlet.ShouldProcess($Name, 'Remove Confluence credential context')) {
         Remove-Context -ID $Name -Vault $script:Confluence.ContextVault -ErrorAction SilentlyContinue
         if ($script:Confluence.Config['DefaultContext'] -eq $Name) {
-            Set-ConfluenceConfig -Name 'DefaultContext' -Value ''
+            # The outer cmdlet already confirmed this operation; suppress the inner cmdlet's
+            # ShouldProcess prompt so -Confirm does not trigger a second, nested confirmation.
+            Set-ConfluenceConfig -Name 'DefaultContext' -Value '' -Confirm:$false
         }
     }
 }
