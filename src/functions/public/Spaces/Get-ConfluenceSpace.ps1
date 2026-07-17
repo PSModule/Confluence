@@ -37,35 +37,42 @@ function Get-ConfluenceSpace {
         .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-space/
     #>
-    [CmdletBinding(DefaultParameterSetName = 'ByKey')]
+    [CmdletBinding(DefaultParameterSetName = 'ListAccessibleSpaces')]
     param(
         # The space key, e.g. 'DOCS'.
-        [Parameter(ParameterSetName = 'ByKey')]
+        [Parameter(ParameterSetName = 'GetByKeyPattern')]
         [SupportsWildcards()]
         [string]$Key,
 
         # The space ID.
-        [Parameter(Mandatory, ParameterSetName = 'ById')]
+        [Parameter(Mandatory, ParameterSetName = 'GetById')]
         [string]$Id,
 
         # The context to use: an object, a context name, or $null for the default.
         [object]$Context
     )
 
-    if ($PSCmdlet.ParameterSetName -eq 'ById') {
-        return Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/spaces/$Id" -Context $Context
-    }
+    switch ($PSCmdlet.ParameterSetName) {
+        'GetById' {
+            return Get-ConfluenceSpaceByIdEndpoint -Id $Id -Context $Context
+        }
+        'GetByKeyPattern' {
+            $allSpaces = @(Get-ConfluenceSpacesEndpoint -Context $Context)
+            $containsWildcard = $Key.IndexOfAny([char[]]@('*', '?', '[')) -ge 0
+            if ($containsWildcard) {
+                return $allSpaces |
+                    Where-Object { $_.key -like $Key }
+            }
 
-    if ([string]::IsNullOrEmpty($Key)) {
-        return @(Invoke-ConfluenceRestMethod -ApiVersion 'v2' -ApiEndpoint 'spaces' -All -Context $Context)
+            return $allSpaces |
+                Where-Object { $_.key -eq $Key } |
+                Select-Object -First 1
+        }
+        'ListAccessibleSpaces' {
+            return @(Get-ConfluenceSpacesEndpoint -Context $Context)
+        }
+        default {
+            throw "Unsupported parameter set: $($PSCmdlet.ParameterSetName)"
+        }
     }
-
-    $containsWildcard = $Key.IndexOfAny([char[]]@('*', '?', '[')) -ge 0
-    if ($containsWildcard) {
-        return @(Invoke-ConfluenceRestMethod -ApiVersion 'v2' -ApiEndpoint 'spaces' -All -Context $Context) |
-            Where-Object { $_.key -like $Key }
-    }
-
-    $response = Invoke-ConfluenceRestMethod -ApiEndpoint '/wiki/api/v2/spaces' -Query @{ keys = $Key } -Context $Context
-    $response.results | Where-Object { $_.key -eq $Key } | Select-Object -First 1
 }

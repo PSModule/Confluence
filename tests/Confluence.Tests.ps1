@@ -97,6 +97,7 @@ Describe 'Confluence' {
                 $commands | Should -Not -Contain $name
             }
         }
+
     }
 
     # Integration tests exercise every public command against a live Confluence Cloud site,
