@@ -20,22 +20,31 @@ function Get-ConfluenceSpaceProperty {
         .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-space-properties/
     #>
+    [OutputType([ConfluenceSpaceProperty])]
     [CmdletBinding()]
     param(
         # The space ID.
         [Parameter(Mandatory)]
-        [string]$SpaceId,
+        [ValidateNotNullOrEmpty()]
+        [string] $SpaceId,
 
         # The property key to return. If omitted, all properties are returned.
-        [string]$Key,
+        [Parameter()]
+        [string] $Key,
 
         # The context to use: an object, a context name, or $null for the default.
-        [object]$Context
+        [Parameter()]
+        [object] $Context
     )
 
     $all = Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/spaces/$SpaceId/properties" -All -Context $Context
     if ([string]::IsNullOrEmpty($Key)) {
-        return $all
+        foreach ($property in @($all)) {
+            ConvertTo-ConfluenceType -InputObject $property -TypeName 'ConfluenceSpaceProperty'
+        }
+        return
     }
-    $all | Where-Object { $_.key -eq $Key } | Select-Object -First 1
+
+    $match = $all | Where-Object { $_.key -eq $Key } | Select-Object -First 1
+    ConvertTo-ConfluenceType -InputObject $match -TypeName 'ConfluenceSpaceProperty'
 }

@@ -20,15 +20,20 @@ function Get-ConfluencePageChild {
         .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-children/
     #>
+    [OutputType([ConfluencePage])]
     [CmdletBinding()]
     param(
         # The parent page ID.
         [Parameter(Mandatory)]
-        [string]$PageId,
+        [ValidateNotNullOrEmpty()]
+        [string] $PageId,
 
         # The context to use: an object, a context name, or $null for the default.
-        [object]$Context
+        [Parameter()]
+        [object] $Context
     )
 
-    Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/pages/$PageId/children" -All -Context $Context
+    foreach ($page in @(Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/pages/$PageId/children" -All -Context $Context)) {
+        ConvertTo-ConfluenceType -InputObject $page -TypeName 'ConfluencePage'
+    }
 }

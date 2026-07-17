@@ -20,15 +20,19 @@ function Get-ConfluenceFolder {
         .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-folder/
     #>
+    [OutputType([ConfluenceFolder])]
     [CmdletBinding()]
     param(
         # The folder ID.
         [Parameter(Mandatory)]
-        [string]$FolderId,
+        [ValidateNotNullOrEmpty()]
+        [string] $FolderId,
 
         # The context to use: an object, a context name, or $null for the default.
-        [object]$Context
+        [Parameter()]
+        [object] $Context
     )
 
-    Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/folders/$FolderId" -Context $Context
+    $folder = Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/folders/$FolderId" -Context $Context
+    ConvertTo-ConfluenceType -InputObject $folder -TypeName 'ConfluenceFolder'
 }

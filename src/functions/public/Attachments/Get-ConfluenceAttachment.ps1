@@ -20,23 +20,31 @@ function Get-ConfluenceAttachment {
         .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-attachment/
     #>
+    [OutputType([ConfluenceAttachment])]
     [CmdletBinding(DefaultParameterSetName = 'ByPage')]
     param(
         # The page ID whose attachments are listed.
         [Parameter(Mandatory, ParameterSetName = 'ByPage')]
-        [string]$PageId,
+        [ValidateNotNullOrEmpty()]
+        [string] $PageId,
 
         # A single attachment ID to return.
         [Parameter(Mandatory, ParameterSetName = 'ById')]
-        [string]$AttachmentId,
+        [ValidateNotNullOrEmpty()]
+        [string] $AttachmentId,
 
         # The context to use: an object, a context name, or $null for the default.
-        [object]$Context
+        [Parameter()]
+        [object] $Context
     )
 
     if ($PSCmdlet.ParameterSetName -eq 'ById') {
-        return Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/attachments/$AttachmentId" -Context $Context
+        $attachment = Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/attachments/$AttachmentId" -Context $Context
+        ConvertTo-ConfluenceType -InputObject $attachment -TypeName 'ConfluenceAttachment'
+        return
     }
 
-    Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/pages/$PageId/attachments" -All -Context $Context
+    foreach ($attachment in @(Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/pages/$PageId/attachments" -All -Context $Context)) {
+        ConvertTo-ConfluenceType -InputObject $attachment -TypeName 'ConfluenceAttachment'
+    }
 }

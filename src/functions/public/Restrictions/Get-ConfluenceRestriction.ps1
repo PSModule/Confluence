@@ -23,18 +23,23 @@ function Get-ConfluenceRestriction {
         .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v1/api-group-content-restrictions/
     #>
+    [OutputType([ConfluenceRestriction])]
     [CmdletBinding()]
     param(
         # The page ID.
         [Parameter(Mandatory)]
-        [string]$PageId,
+        [ValidateNotNullOrEmpty()]
+        [string] $PageId,
 
         # The context to use: an object, a context name, or $null for the default.
-        [object]$Context
+        [Parameter()]
+        [object] $Context
     )
 
     # Content restrictions live on the v1 content API; there is no equivalent v2
     # endpoint (a v2 '/pages/{id}/restrictions' path is rejected with a scope
     # check). The v1 endpoint returns the read/update operations in 'results'.
-    Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/rest/api/content/$PageId/restriction" -All -Context $Context
+    foreach ($restriction in @(Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/rest/api/content/$PageId/restriction" -All -Context $Context)) {
+        ConvertTo-ConfluenceType -InputObject $restriction -TypeName 'ConfluenceRestriction'
+    }
 }

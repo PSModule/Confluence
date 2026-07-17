@@ -20,19 +20,24 @@ function Get-ConfluencePage {
         .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-page/
     #>
+    [OutputType([ConfluencePage])]
     [CmdletBinding()]
     param(
         # The page ID.
         [Parameter(Mandatory)]
-        [string]$PageId,
+        [ValidateNotNullOrEmpty()]
+        [string] $PageId,
 
         # The body format to return. Defaults to 'storage'.
+        [Parameter()]
         [ValidateSet('storage', 'atlas_doc_format', 'view', 'export_view', 'anonymous_export_view', 'styled_view', 'editor')]
-        [string]$BodyFormat = 'storage',
+        [string] $BodyFormat = 'storage',
 
         # The context to use: an object, a context name, or $null for the default.
-        [object]$Context
+        [Parameter()]
+        [object] $Context
     )
 
-    Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/pages/$PageId" -Query @{ 'body-format' = $BodyFormat } -Context $Context
+    $page = Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/pages/$PageId" -Query @{ 'body-format' = $BodyFormat } -Context $Context
+    ConvertTo-ConfluenceType -InputObject $page -TypeName 'ConfluencePage'
 }

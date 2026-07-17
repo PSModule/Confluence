@@ -20,15 +20,20 @@ function Get-ConfluencePageVersion {
         .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-version/
     #>
+    [OutputType([ConfluencePageVersion])]
     [CmdletBinding()]
     param(
         # The page ID.
         [Parameter(Mandatory)]
-        [string]$PageId,
+        [ValidateNotNullOrEmpty()]
+        [string] $PageId,
 
         # The context to use: an object, a context name, or $null for the default.
-        [object]$Context
+        [Parameter()]
+        [object] $Context
     )
 
-    Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/pages/$PageId/versions" -All -Context $Context
+    foreach ($version in @(Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/pages/$PageId/versions" -All -Context $Context)) {
+        ConvertTo-ConfluenceType -InputObject $version -TypeName 'ConfluencePageVersion'
+    }
 }

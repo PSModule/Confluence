@@ -20,15 +20,20 @@ function Get-ConfluenceComment {
         .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-comment/
     #>
+    [OutputType([ConfluenceComment])]
     [CmdletBinding()]
     param(
         # The page ID.
         [Parameter(Mandatory)]
-        [string]$PageId,
+        [ValidateNotNullOrEmpty()]
+        [string] $PageId,
 
         # The context to use: an object, a context name, or $null for the default.
-        [object]$Context
+        [Parameter()]
+        [object] $Context
     )
 
-    Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/pages/$PageId/footer-comments" -All -Context $Context
+    foreach ($comment in @(Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/pages/$PageId/footer-comments" -All -Context $Context)) {
+        ConvertTo-ConfluenceType -InputObject $comment -TypeName 'ConfluenceComment'
+    }
 }

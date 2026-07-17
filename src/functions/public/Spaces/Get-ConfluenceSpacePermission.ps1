@@ -25,15 +25,20 @@ function Get-ConfluenceSpacePermission {
         .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-space-permissions/
     #>
+    [OutputType([ConfluenceSpacePermission])]
     [CmdletBinding()]
     param(
         # The space ID whose permission assignments are returned.
         [Parameter(Mandatory)]
-        [string]$SpaceId,
+        [ValidateNotNullOrEmpty()]
+        [string] $SpaceId,
 
         # The context to use: an object, a context name, or $null for the default.
-        [object]$Context
+        [Parameter()]
+        [object] $Context
     )
 
-    Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/spaces/$SpaceId/permissions" -All -Context $Context
+    foreach ($permission in @(Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/spaces/$SpaceId/permissions" -All -Context $Context)) {
+        ConvertTo-ConfluenceType -InputObject $permission -TypeName 'ConfluenceSpacePermission'
+    }
 }

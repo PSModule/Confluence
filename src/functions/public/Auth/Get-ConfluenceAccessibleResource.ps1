@@ -36,8 +36,8 @@ function Get-ConfluenceAccessibleResource {
         .LINK
         https://developer.atlassian.com/cloud/confluence/oauth-2-3lo-apps/#3--make-calls-to-the-api-using-the-access-token
     #>
+    [OutputType([ConfluenceAccessibleResource])]
     [CmdletBinding()]
-    [OutputType([object])]
     param(
         # The scoped Atlassian API token as a SecureString.
         [Parameter(Mandatory, ValueFromPipeline, ValueFromPipelineByPropertyName)]
@@ -54,7 +54,9 @@ function Get-ConfluenceAccessibleResource {
         Write-Verbose "Listing accessible resources from [$uri]."
 
         try {
-            Invoke-RestMethod -Uri $uri -Headers $headers -Method Get -ErrorAction Stop
+            foreach ($resource in @(Invoke-RestMethod -Uri $uri -Headers $headers -Method Get -ErrorAction Stop)) {
+                ConvertTo-ConfluenceType -InputObject $resource -TypeName 'ConfluenceAccessibleResource'
+            }
         } catch {
             throw "Failed to list accessible resources from [$uri]: $($_.Exception.Message)"
         }

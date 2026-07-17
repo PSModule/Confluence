@@ -23,8 +23,8 @@ function Get-ConfluenceSiteInfo {
         .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-space/
     #>
+    [OutputType([ConfluenceSiteInfo])]
     [CmdletBinding()]
-    [OutputType([pscustomobject])]
     param(
         # The context to use: an object, a context name, or $null for the default.
         [object]$Context
@@ -53,9 +53,11 @@ function Get-ConfluenceSiteInfo {
         Write-Verbose "Could not resolve the browsable site URL from the probe endpoints: $($lastError.Exception.Message)"
     }
 
-    [pscustomobject]@{
+    $siteInfo = [pscustomobject]@{
         CloudId    = $cloudId
         ApiBaseUri = $resolved.ApiBaseUri
         SiteUrl    = $siteUrl
     }
+
+    ConvertTo-ConfluenceType -InputObject $siteInfo -TypeName 'ConfluenceSiteInfo'
 }

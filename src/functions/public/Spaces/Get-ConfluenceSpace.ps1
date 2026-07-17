@@ -37,39 +37,50 @@ function Get-ConfluenceSpace {
         .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-space/
     #>
+    [OutputType([ConfluenceSpace])]
     [CmdletBinding(DefaultParameterSetName = 'ListAccessibleSpaces')]
     param(
         # The space key, e.g. 'DOCS'.
         [Parameter(ParameterSetName = 'GetByKeyPattern')]
         [SupportsWildcards()]
-        [string]$Key,
+        [ValidateNotNullOrEmpty()]
+        [string] $Key,
 
         # The space ID.
         [Parameter(Mandatory, ParameterSetName = 'GetById')]
-        [string]$Id,
+        [ValidateNotNullOrEmpty()]
+        [string] $Id,
 
         # The context to use: an object, a context name, or $null for the default.
-        [object]$Context
+        [Parameter()]
+        [object] $Context
     )
 
     switch ($PSCmdlet.ParameterSetName) {
         'GetById' {
-            return Get-ConfluenceSpaceByIdEndpoint -Id $Id -Context $Context
+            $space = Get-ConfluenceSpaceByIdEndpoint -Id $Id -Context $Context
+            ConvertTo-ConfluenceType -InputObject $space -TypeName 'ConfluenceSpace'
         }
         'GetByKeyPattern' {
-                $allSpaces = @(Get-ConfluenceSpaceListEndpoint -Context $Context)
+            $allSpaces = @(Get-ConfluenceSpaceListEndpoint -Context $Context)
             $containsWildcard = $Key.IndexOfAny([char[]]@('*', '?', '[')) -ge 0
             if ($containsWildcard) {
-                return $allSpaces |
-                    Where-Object { $_.key -like $Key }
+                foreach ($space in ($allSpaces | Where-Object { $_.key -like $Key })) {
+                    ConvertTo-ConfluenceType -InputObject $space -TypeName 'ConfluenceSpace'
+                }
+                break
             }
 
-            return $allSpaces |
+            $exactSpace = $allSpaces |
                 Where-Object { $_.key -eq $Key } |
                 Select-Object -First 1
+
+            ConvertTo-ConfluenceType -InputObject $exactSpace -TypeName 'ConfluenceSpace'
         }
         'ListAccessibleSpaces' {
-                return @(Get-ConfluenceSpaceListEndpoint -Context $Context)
+            foreach ($space in @(Get-ConfluenceSpaceListEndpoint -Context $Context)) {
+                ConvertTo-ConfluenceType -InputObject $space -TypeName 'ConfluenceSpace'
+            }
         }
         default {
             throw "Unsupported parameter set: $($PSCmdlet.ParameterSetName)"

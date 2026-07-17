@@ -22,15 +22,20 @@ function Get-ConfluenceLabel {
         .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-label/
     #>
+    [OutputType([ConfluenceLabel])]
     [CmdletBinding()]
     param(
         # The page ID.
         [Parameter(Mandatory)]
-        [string]$PageId,
+        [ValidateNotNullOrEmpty()]
+        [string] $PageId,
 
         # The context to use: an object, a context name, or $null for the default.
-        [object]$Context
+        [Parameter()]
+        [object] $Context
     )
 
-    Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/pages/$PageId/labels" -All -Context $Context
+    foreach ($label in @(Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/pages/$PageId/labels" -All -Context $Context)) {
+        ConvertTo-ConfluenceType -InputObject $label -TypeName 'ConfluenceLabel'
+    }
 }

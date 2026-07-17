@@ -24,11 +24,14 @@ function Get-ConfluenceCurrentUser {
         .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v1/api-group-users/
     #>
+    [OutputType([ConfluenceUser])]
     [CmdletBinding()]
     param(
         # The context to use: an object, a context name, or $null for the default.
-        [object]$Context
+        [Parameter()]
+        [object] $Context
     )
 
-    Invoke-ConfluenceRestMethod -ApiEndpoint '/wiki/rest/api/user/current' -Context $Context
+    $user = Invoke-ConfluenceRestMethod -ApiEndpoint '/wiki/rest/api/user/current' -Context $Context
+    ConvertTo-ConfluenceType -InputObject $user -TypeName 'ConfluenceUser'
 }

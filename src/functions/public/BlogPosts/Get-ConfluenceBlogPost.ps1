@@ -21,25 +21,36 @@ function Get-ConfluenceBlogPost {
         .LINK
         https://developer.atlassian.com/cloud/confluence/rest/v2/api-group-blog-post/
     #>
+    [OutputType([ConfluenceBlogPost])]
     [CmdletBinding(DefaultParameterSetName = 'List')]
     param(
         # A single blog post ID to return.
         [Parameter(Mandatory, ParameterSetName = 'ById')]
-        [string]$BlogPostId,
+        [ValidateNotNullOrEmpty()]
+        [string] $BlogPostId,
 
         # List blog posts in this space ID. Omit to list across the whole site.
         [Parameter(ParameterSetName = 'List')]
-        [string]$SpaceId,
+        [string] $SpaceId,
 
         # The context to use: an object, a context name, or $null for the default.
-        [object]$Context
+        [Parameter()]
+        [object] $Context
     )
 
     if ($PSCmdlet.ParameterSetName -eq 'ById') {
-        return Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/blogposts/$BlogPostId" -Context $Context
+        $blogPost = Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/blogposts/$BlogPostId" -Context $Context
+        ConvertTo-ConfluenceType -InputObject $blogPost -TypeName 'ConfluenceBlogPost'
+        return
     }
     if (-not [string]::IsNullOrEmpty($SpaceId)) {
-        return Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/spaces/$SpaceId/blogposts" -All -Context $Context
+        foreach ($blogPost in @(Invoke-ConfluenceRestMethod -ApiEndpoint "/wiki/api/v2/spaces/$SpaceId/blogposts" -All -Context $Context)) {
+            ConvertTo-ConfluenceType -InputObject $blogPost -TypeName 'ConfluenceBlogPost'
+        }
+        return
     }
-    Invoke-ConfluenceRestMethod -ApiEndpoint '/wiki/api/v2/blogposts' -All -Context $Context
+
+    foreach ($blogPost in @(Invoke-ConfluenceRestMethod -ApiEndpoint '/wiki/api/v2/blogposts' -All -Context $Context)) {
+        ConvertTo-ConfluenceType -InputObject $blogPost -TypeName 'ConfluenceBlogPost'
+    }
 }
