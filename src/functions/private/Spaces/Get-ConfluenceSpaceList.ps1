@@ -1,4 +1,4 @@
-﻿function Get-ConfluenceSpacesEndpoint {
+﻿function Get-ConfluenceSpaceListEndpoint {
     [CmdletBinding()]
     param(
         [object]$Context

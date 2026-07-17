@@ -57,7 +57,7 @@ function Get-ConfluenceSpace {
             return Get-ConfluenceSpaceByIdEndpoint -Id $Id -Context $Context
         }
         'GetByKeyPattern' {
-            $allSpaces = @(Get-ConfluenceSpacesEndpoint -Context $Context)
+                $allSpaces = @(Get-ConfluenceSpaceListEndpoint -Context $Context)
             $containsWildcard = $Key.IndexOfAny([char[]]@('*', '?', '[')) -ge 0
             if ($containsWildcard) {
                 return $allSpaces |
@@ -69,7 +69,7 @@ function Get-ConfluenceSpace {
                 Select-Object -First 1
         }
         'ListAccessibleSpaces' {
-            return @(Get-ConfluenceSpacesEndpoint -Context $Context)
+                return @(Get-ConfluenceSpaceListEndpoint -Context $Context)
         }
         default {
             throw "Unsupported parameter set: $($PSCmdlet.ParameterSetName)"
