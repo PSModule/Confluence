@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+    <ViewDefinitions>
+        <View>
+            <Name>ConfluencePageVersionTable</Name>
+            <ViewSelectedBy>
+                <TypeName>ConfluencePageVersion</TypeName>
+            </ViewSelectedBy>
+            <TableControl>
+                <TableHeaders>
+                    <TableColumnHeader><Label>Number</Label></TableColumnHeader>
+                    <TableColumnHeader><Label>CreatedAt</Label></TableColumnHeader>
+                    <TableColumnHeader><Label>AuthorId</Label></TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                        <TableColumnItems>
+                            <TableColumnItem><PropertyName>Number</PropertyName></TableColumnItem>
+                            <TableColumnItem><PropertyName>CreatedAt</PropertyName></TableColumnItem>
+                            <TableColumnItem><PropertyName>AuthorId</PropertyName></TableColumnItem>
+                        </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+    <ViewDefinitions>
+        <View>
+            <Name>ConfluenceSpacePermissionTable</Name>
+            <ViewSelectedBy>
+                <TypeName>ConfluenceSpacePermission</TypeName>
+            </ViewSelectedBy>
+            <TableControl>
+                <TableHeaders>
+                    <TableColumnHeader><Label>PrincipalType</Label></TableColumnHeader>
+                    <TableColumnHeader><Label>PrincipalName</Label></TableColumnHeader>
+                    <TableColumnHeader><Label>Operation</Label></TableColumnHeader>
+                    <TableColumnHeader><Label>TargetType</Label></TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                        <TableColumnItems>
+                            <TableColumnItem><PropertyName>PrincipalType</PropertyName></TableColumnItem>
+                            <TableColumnItem><PropertyName>PrincipalName</PropertyName></TableColumnItem>
+                            <TableColumnItem><PropertyName>Operation</PropertyName></TableColumnItem>
+                            <TableColumnItem><PropertyName>TargetType</PropertyName></TableColumnItem>
+                        </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+    <ViewDefinitions>
+        <View>
+            <Name>ConfluenceAttachmentTable</Name>
+            <ViewSelectedBy>
+                <TypeName>ConfluenceAttachment</TypeName>
+            </ViewSelectedBy>
+            <TableControl>
+                <TableHeaders>
+                    <TableColumnHeader><Label>Title</Label></TableColumnHeader>
+                    <TableColumnHeader><Label>MediaType</Label></TableColumnHeader>
+                    <TableColumnHeader><Label>FileSize</Label></TableColumnHeader>
+                    <TableColumnHeader><Label>Id</Label></TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                        <TableColumnItems>
+                            <TableColumnItem><PropertyName>Title</PropertyName></TableColumnItem>
+                            <TableColumnItem><PropertyName>MediaType</PropertyName></TableColumnItem>
+                            <TableColumnItem><PropertyName>FileSize</PropertyName></TableColumnItem>
+                            <TableColumnItem><PropertyName>Id</PropertyName></TableColumnItem>
+                        </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>

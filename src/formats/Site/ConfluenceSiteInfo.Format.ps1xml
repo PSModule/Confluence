@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+    <ViewDefinitions>
+        <View>
+            <Name>ConfluenceSiteInfoTable</Name>
+            <ViewSelectedBy>
+                <TypeName>ConfluenceSiteInfo</TypeName>
+            </ViewSelectedBy>
+            <TableControl>
+                <TableHeaders>
+                    <TableColumnHeader><Label>CloudId</Label></TableColumnHeader>
+                    <TableColumnHeader><Label>SiteUrl</Label></TableColumnHeader>
+                    <TableColumnHeader><Label>ApiBaseUri</Label></TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                        <TableColumnItems>
+                            <TableColumnItem><PropertyName>CloudId</PropertyName></TableColumnItem>
+                            <TableColumnItem><PropertyName>SiteUrl</PropertyName></TableColumnItem>
+                            <TableColumnItem><PropertyName>ApiBaseUri</PropertyName></TableColumnItem>
+                        </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>

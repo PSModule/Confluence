@@ -39,24 +39,3 @@ $script:Confluence = [pscustomobject]@{
     Config        = $null
 }
 
-$displayPropertySets = @{
-    ConfluenceSpace = @('Key', 'Name', 'Id', 'Status', 'Type')
-    ConfluenceSpacePermission = @('PrincipalType', 'PrincipalName', 'Operation', 'TargetType')
-    ConfluenceSpaceProperty = @('Key', 'Value', 'Id')
-    ConfluencePage = @('Title', 'Id', 'Status', 'SpaceId')
-    ConfluencePageVersion = @('Number', 'CreatedAt', 'AuthorId')
-    ConfluenceFolder = @('Title', 'Id', 'ParentId')
-    ConfluenceComment = @('Id', 'Status', 'PageId')
-    ConfluenceLabel = @('Name', 'Prefix', 'Id')
-    ConfluenceContentProperty = @('Key', 'Version', 'Id')
-    ConfluenceAttachment = @('Title', 'MediaType', 'FileSize', 'Id')
-    ConfluenceRestriction = @('Operation', 'RestrictionsUserCount', 'RestrictionsGroupCount')
-    ConfluenceBlogPost = @('Title', 'Id', 'Status', 'SpaceId')
-    ConfluenceUser = @('DisplayName', 'PublicName', 'Email', 'AccountId')
-    ConfluenceSiteInfo = @('CloudId', 'SiteUrl', 'ApiBaseUri')
-    ConfluenceAccessibleResource = @('Name', 'Url', 'Id', 'Scopes')
-}
-
-foreach ($entry in $displayPropertySets.GetEnumerator()) {
-    Update-TypeData -TypeName $entry.Key -DefaultDisplayPropertySet $entry.Value -Force
-}
