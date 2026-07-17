@@ -300,6 +300,16 @@ Describe 'Confluence' {
         }
 
         Context 'Spaces' {
+            It 'Get-ConfluenceSpace without parameters lists accessible spaces' {
+                $allSpaces = @(Get-ConfluenceSpace -Context 'ci')
+                LogGroup 'All accessible spaces' {
+                    Write-Host ($allSpaces | Select-Object -First 10 key, id, name | Format-Table -AutoSize | Out-String)
+                    Write-Host "Total spaces: $($allSpaces.Count)"
+                }
+                $allSpaces.Count | Should -BeGreaterThan 0
+                ($allSpaces.key -contains $env:CONFLUENCE_SPACE_KEY) | Should -BeTrue
+            }
+
             It 'Get-ConfluenceSpace resolves a space by key' {
                 $byKey = Get-ConfluenceSpace -Key $env:CONFLUENCE_SPACE_KEY -Context 'ci'
                 LogGroup 'Space by key' {
@@ -315,6 +325,22 @@ Describe 'Confluence' {
                     Write-Host ($byId | Format-List | Out-String)
                 }
                 $byId.id | Should -Be $script:spaceId
+            }
+
+            It 'Get-ConfluenceSpace supports wildcard key filters' {
+                $prefix = if ($env:CONFLUENCE_SPACE_KEY.Length -ge 2) {
+                    $env:CONFLUENCE_SPACE_KEY.Substring(0, 2)
+                } else {
+                    $env:CONFLUENCE_SPACE_KEY
+                }
+                $pattern = "$prefix*"
+                $matches = @(Get-ConfluenceSpace -Key $pattern -Context 'ci')
+                LogGroup "Space wildcard [$pattern]" {
+                    Write-Host ($matches | Select-Object key, id, name | Format-Table -AutoSize | Out-String)
+                }
+                $matches.Count | Should -BeGreaterThan 0
+                ($matches.key -contains $env:CONFLUENCE_SPACE_KEY) | Should -BeTrue
+                @($matches | Where-Object { $_.key -notlike $pattern }).Count | Should -Be 0
             }
 
             It 'Get-ConfluenceSpacePermission lists space permissions' {

@@ -5,8 +5,10 @@ function Get-ConfluenceSpace {
         Get a Confluence space (read:space).
 
         .DESCRIPTION
-        Returns a space by key or by ID. When neither is supplied the default
-        space key from the connected context is used.
+        Returns spaces the connected user can access. Without parameters, lists
+        all accessible spaces. With -Id, returns that exact space by ID. With
+        -Key, returns an exact key match; wildcard keys are supported and return
+        all matching spaces.
 
         .EXAMPLE
         ```powershell
@@ -14,6 +16,20 @@ function Get-ConfluenceSpace {
         ```
 
         Gets the space with key 'DOCS'.
+
+        .EXAMPLE
+        ```powershell
+        Get-ConfluenceSpace
+        ```
+
+        Lists all spaces visible to the connected user.
+
+        .EXAMPLE
+        ```powershell
+        Get-ConfluenceSpace -Key 'AIT*'
+        ```
+
+        Returns all spaces with keys that start with 'AIT'.
 
         .LINK
         https://psmodule.io/Confluence/Functions/Spaces/Get-ConfluenceSpace/
@@ -25,6 +41,7 @@ function Get-ConfluenceSpace {
     param(
         # The space key, e.g. 'DOCS'.
         [Parameter(ParameterSetName = 'ByKey')]
+        [SupportsWildcards()]
         [string]$Key,
 
         # The space ID.
@@ -40,11 +57,13 @@ function Get-ConfluenceSpace {
     }
 
     if ([string]::IsNullOrEmpty($Key)) {
-        $resolved = Resolve-ConfluenceContext -Context $Context
-        $Key = $resolved.SpaceKey
+        return @(Invoke-ConfluenceRestMethod -ApiVersion 'v2' -ApiEndpoint 'spaces' -All -Context $Context)
     }
-    if ([string]::IsNullOrEmpty($Key)) {
-        throw 'Specify -Key or -Id, or connect with a default SpaceKey.'
+
+    $containsWildcard = $Key.IndexOfAny([char[]]@('*', '?', '[')) -ge 0
+    if ($containsWildcard) {
+        return @(Invoke-ConfluenceRestMethod -ApiVersion 'v2' -ApiEndpoint 'spaces' -All -Context $Context) |
+            Where-Object { $_.key -like $Key }
     }
 
     $response = Invoke-ConfluenceRestMethod -ApiEndpoint '/wiki/api/v2/spaces' -Query @{ keys = $Key } -Context $Context
