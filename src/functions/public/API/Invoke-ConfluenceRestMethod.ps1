@@ -167,6 +167,29 @@ function Invoke-ConfluenceRestMethod {
             }
         }
 
+        
+        # Requests are near rate limit or have surpassed the rate limit.
+        # Atlassian documents several response headers, https://developer.atlassian.com/cloud/confluence/rate-limiting/#rate-limit-related-headers
+        if (($responseHeaders['X-RateLimit-NearLimit'] | Select-Object -First 1) -eq 'true') {
+            # Less than 20% quota remains, wait 500ms pre-emptively
+            Write-Debug 'Requests are close to rate-limiting. Sleeping for 500ms.'
+            Start-Sleep -Milliseconds 500
+        }
+
+        while ($statusCode -eq 429) {
+            Write-Debug "Requests have been throttled. Sleeping for $($responseHeaders['Retry-After']) seconds"
+            
+            # During testing, this header was always returned as an array
+            if ($responseHeaders['Retry-After'] -is [array]) {
+                Start-Sleep -Seconds ($responseHeaders['Retry-After'] | Select-Object -First 1)
+            } else {
+                Start-Sleep -Seconds $responseHeaders['Retry-After']
+            }
+
+            # Retry throttled request
+            $response = Invoke-RestMethod @request -Debug:$false
+        }
+
         if ($statusCode -ge 400) {
             $detail = if ($null -eq $response) {
                 ''
